@@ -1,0 +1,90 @@
+[alias]
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblue(%aN)%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  lgf = "!_() { local SHA=`git lg | fzf --no-sort --ansi | sed 's/^[^a-z0-9]*//;/^$/d' | awk '{print $1}'`; [ -n \"${SHA}\" ] && git show ${SHA}; }; _"
+  new = !bash -c 'git lg $1@{1}..$1@{0} "$@"'
+  show-deleted = "!_() { local HASH=`git rev-list --max-count=1 --all -- $1`; git show ${HASH}^:$1; }; _"
+  gone-branches = "!_() { git branch -vv | awk '$3 $4 ~ /:gone/ { print $1 }'; }; _"
+  check-conflicts = "!_() { set -x; local BRANCH=${1-master}; local BASE=`git merge-base HEAD $BRANCH`; git format-patch $BASE..$BRANCH --stdout | git apply --3way --check -; }; _"
+  root = "!pwd"
+
+[core]
+  pager = diff-so-fancy | less --tabs=2 -FRX
+
+[diff-so-fancy]
+  stripLeadingSymbols = false
+
+[push]
+  default = current
+  followTags = true
+
+[merge]
+  tool = opendiff
+  conflictstyle = diff3
+
+[diff]
+  tool = opendiff
+
+[interactive]
+  diffFilter = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight
+
+[submodule]
+  recurse = true
+
+[color]
+  ui = auto
+
+[color "branch"]
+  current = "white blue bold"
+  local = "white bold"
+  plain = "white"
+  remote  = "blue bold"
+
+[color "decorate"]
+  branch = "blue bold"
+  HEAD = "white bold ul"
+  remoteBranch = "blue"
+  stash = "yellow"
+  tag = "cyan bold"
+
+[color "diff"]
+  commit = "blue bold"
+  frag = "blue bold"
+  func = "white"
+  meta = "cyan"
+  new = "green"
+  old = "red"
+  plain = "white"
+  whitespace = "white reverse"
+
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "white red bold"
+  newNormal = "green bold"
+  newHighlight = "white green bold"
+
+[color "grep"]
+  context = "white"
+  filename = "white dim ul"
+  function = "white"
+  linenumber = "white dim bold"
+  match = "blue bold"
+  selected = "white"
+  separator = "white dim"
+
+[color "interactive"]
+  error = "red bold"
+  header = "blue bold"
+  help = "white dim"
+  prompt = "cyan"
+
+[color "status"]
+  added = "green bold"
+  changed = "yellow bold"
+  header = "white"
+  nobranch = "magenta bold ul"
+  unmerged = "blue ul"
+  untracked = "red bold"
+  updated = "cyan bold"
+
+[include]
+  path = .gitconfig.local

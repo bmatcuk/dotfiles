@@ -1,0 +1,33 @@
+{
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.source.around.enable": false,
+  "coc.source.buffer.enable": false,
+  "css.validate": false,
+  "diagnostic.messageTarget": "echo",
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextPrefix": "     ",
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "git.addGBlameToVirtualText": true,
+  "less.validate": false,
+  "lists.disabledLists": [
+    "colors",
+    "files",
+    "filetypes",
+    "grep",
+    "maps",
+    "sessions",
+    "windows"
+  ],
+  "scss.validate": false,
+  "stylelintplus.autoFixOnFormat": true,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.enablePreview": true,
+  "suggest.noselect": false,
+  "wxss.validate": false
+}

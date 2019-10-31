@@ -1,0 +1,4 @@
+set diff-highlight = true
+set ignore-case  = true
+set show-changes = true
+set tab-size = 2

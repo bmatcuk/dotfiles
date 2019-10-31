@@ -1,0 +1,32 @@
+# npm install eslint eslint-plugin-import eslint-plugin-node \
+#   eslint-plugin-promise eslint-plugin-standard eslint-config-standard -g
+extends: standard
+env:
+  expect: true
+  jquery: true
+  mocha: true
+rules:
+  space-before-function-paren:
+    - "off"
+  spaced-comment:
+    - error
+    - always
+    - line:
+        markers:
+          - "*package"
+          - "="
+          - "!"
+          - "/"
+          - ","
+      block:
+        balanced: true
+        markers:
+          - "*package"
+          - "="
+          - "!"
+          - ","
+          - ":"
+          - "::"
+          - "flow-include"
+        exceptions:
+          - "*"

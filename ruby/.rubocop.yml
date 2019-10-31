@@ -1,0 +1,23 @@
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+  TargetRubyVersion: 2.6
+Documentation:
+  Enabled: false
+Metrics/LineLength:
+  Max: 150
+Metrics/MethodLength:
+  Max: 20
+Metrics/AbcSize:
+  Max: 30
+Style/ClassAndModuleChildren:
+  Enabled: false
+Layout/IndentArray:
+  EnforcedStyle: consistent
+Style/NumericLiterals:
+  MinDigits: 7
+Style/RaiseArgs:
+  EnforcedStyle: compact

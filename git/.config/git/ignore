@@ -1,0 +1,11 @@
+*.swp
+*.gem
+*.byebug_history
+.env.local
+
+# OSX
+.DS_Store
+.fseventd
+.Spotlight-V100
+.Trash-*
+.Trashes
