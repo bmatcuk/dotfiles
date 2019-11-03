@@ -46,9 +46,22 @@ function prompt {
     DIR_PREFIX="${DIR_PREFIX}../"
   done
 
+  # blank line
+  echo
+
+  local JOBS=$(jobs -p | wc -l | tr -d '[:space:]')
+  if [ "$JOBS" -gt 0 ]; then
+    # subtract 4 from WIDTH for space, double hard arrow, space that separates
+    # jobs count from directory
+    echo -en "$(tput bold)$(tput setab 4)$(tput setaf 0) "
+    ellipsis_echo "\uF77A $JOBS" $WIDTH
+    WIDTH=$(( $WIDTH - $? - 4 ))
+    echo -en " $(tput sgr0)$(tput setab 0)$(tput setaf 4)$HARD_ARROW"
+    echo -en "$(tput setab 6)$(tput setaf 0)$HARD_ARROW$(tput sgr0)"
+  fi
+
   # output current directory
   # subtract 3 from WIDTH for space, hard arrow, space that separates parts
-  echo
   echo -en "$(tput bold)$(tput setab 6)$(tput setaf 0) "
   ellipsis_echo "$DIR" $WIDTH
   WIDTH=$(( $WIDTH - $? - 3 ))
