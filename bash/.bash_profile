@@ -109,9 +109,9 @@ export PATH=$PATH:./node_modules/.bin
 # asdf - brew install asdf
 # asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 # asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-export ASDF_DIR=/usr/local/opt/asdf
 export NODEJS_CHECK_SIGNATURES=no
-export PATH="$HOME/.asdf/shims:$PATH"
+export GOPATH=$HOME/go
+. /usr/local/opt/asdf/asdf.sh
 
 # brew install bat (https://github.com/sharkdp/bat)
 export BAT_THEME="nord"
