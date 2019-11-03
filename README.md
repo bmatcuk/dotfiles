@@ -94,6 +94,7 @@ have support for importing files for this purpose so you don't need to worry
 about accidentally committing these things to git:
 * `~/.bash_profile.local`
 * `~/.gitconfig.local`
+* `~/.ssh/config.local`
 
 [1password]: https://1password.com/
 [Hack]: http://sourcefoundry.org/hack/
