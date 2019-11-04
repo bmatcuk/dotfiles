@@ -22,3 +22,11 @@ directories:
   "app/mailers":
     InstanceVariableAssumption:
       enabled: false
+
+  "db/migrate":
+    FeatureEnvy:
+      enabled: false
+    IrresponsibleModule:
+      enabled: false
+    UncommunicativeVariableName:
+      enabled: false
