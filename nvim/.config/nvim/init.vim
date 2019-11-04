@@ -433,3 +433,6 @@ let g:rainbow_conf = {
 \               'css': 0,
 \       }
 \}
+
+" load local config
+runtime local.vim
