@@ -91,19 +91,20 @@ PS1="\$ "
 
 # Colors for ls and grep
 alias ls='ls -GFh'
+alias grep='grep --color=auto'
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
-export GREP_OPTIONS='--color=auto'
+export GREP_COLORS="fn=34:mt=01;34:ln=01;30:se=30"
 export HISTCONTROL=ignoreboth
 export LESS='-FRX'
 
 # dircolors - brew install coreutils
 [[ -r ~/.dir_colors ]] && eval $(gdircolors ~/.dir_colors)
 
-# Path
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+# Add homebrew to path
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt/grep/libexec/gnubin:$PATH"
 
-# node
+# Add node bin to path
 export PATH=$PATH:./node_modules/.bin
 
 # asdf - brew install asdf
