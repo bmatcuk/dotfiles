@@ -95,11 +95,14 @@ alias grep='grep --color=auto'
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 export GREP_COLORS="fn=34:mt=01;34:ln=01;30:se=30"
-export HISTCONTROL=ignoreboth
 export LESS='-FRX'
 
 # dircolors - brew install coreutils
 [[ -r ~/.dir_colors ]] && eval $(gdircolors ~/.dir_colors)
+
+# history
+export HISTCONTROL=ignoreboth
+export HISTIGNORE="pwd:ls:ls -al:cd .."
 
 # Add homebrew to path
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt/grep/libexec/gnubin:$PATH"
