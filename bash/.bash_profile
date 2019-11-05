@@ -89,13 +89,18 @@ function prompt {
 PROMPT_COMMAND=prompt
 PS1="\$ "
 
-# Colors for ls and grep
+# aliases
 alias ls='ls -GFh'
-alias grep='grep --color=auto'
+alias grep='grep --line-number --color=auto'
+alias cp='cp -v'
+alias mv='mv -v'
+alias rm='rm -v'
+
+# Colors
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 export GREP_COLORS="fn=34:mt=01;34:ln=01;30:se=30"
-export LESS='-FRX'
+export LESS="-FRXx2"
 
 # dircolors - brew install coreutils
 [[ -r ~/.dir_colors ]] && eval $(gdircolors ~/.dir_colors)
@@ -103,6 +108,7 @@ export LESS='-FRX'
 # history
 export HISTCONTROL=ignoreboth
 export HISTIGNORE="pwd:ls:ls -al:cd .."
+shopt -s histappend
 
 # lesspipe
 [ -x /usr/local/bin/lesspipe.sh ] && eval "$(/usr/local/bin/lesspipe.sh)"
