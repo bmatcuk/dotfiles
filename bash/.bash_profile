@@ -114,7 +114,17 @@ shopt -s histappend
 [ -x /usr/local/bin/lesspipe.sh ] && eval "$(/usr/local/bin/lesspipe.sh)"
 
 # Add homebrew to path
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt/grep/libexec/gnubin:$PATH"
+HOMEBREW_PATHS=(
+  "/usr/local/bin"
+  "/usr/local/sbin"
+  "/usr/local/opt/grep/libexec/gnubin"
+  "/usr/local/opt/findutils/libexec/gnubin"
+  "/usr/local/opt/gnu-sed/libexec/gnubin"
+  "/usr/local/opt/gnu-tar/libexec/gnubin"
+  "/usr/local/opt/gnu-which/libexec/gnubin"
+  "$PATH"
+)
+export PATH=$(IFS=":"; echo "${HOMEBREW_PATHS[*]}")
 
 # Add node bin to path
 export PATH=$PATH:./node_modules/.bin
