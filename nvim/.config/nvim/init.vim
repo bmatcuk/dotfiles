@@ -63,6 +63,7 @@ set shortmess+=c
 set signcolumn=yes
 set noshowmode
 set showtabline=2
+autocmd VimResized * wincmd =
 
 set background=dark
 colorscheme nord
@@ -384,15 +385,6 @@ nnoremap <silent> <space>o :<C-u>CocList outline<cr>
 nnoremap <silent> <space>r :<C-u>CocList mru<cr>
 nnoremap <silent> <space>s :<C-u>CocList -I symbols<cr>
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
-
-" custom colors
-" :so $VIMRUNTIME/syntax/hitest.vim
-highlight SignColumn ctermbg=0
-highlight NonText ctermbg=8 ctermfg=239
-highlight Whitespace ctermbg=8 ctermfg=239
-highlight CocCodeLens ctermfg=240
-highlight Pmenu cterm=none ctermfg=8 ctermbg=10
-highlight link CocInfoFloat CocHintFloat
 
 " filetype-specific
 augroup myfilespecific
