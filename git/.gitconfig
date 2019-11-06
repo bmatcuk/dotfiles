@@ -17,6 +17,9 @@
   default = current
   followTags = true
 
+[fetch]
+  prune = true
+
 [merge]
   tool = opendiff
   conflictstyle = diff3
