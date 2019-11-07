@@ -62,11 +62,6 @@ echo "/usr/local/bin/bash" | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/bash
 ```
 
-To use the [nord] theme with [bat]:
-```bash
-bat cache --build
-```
-
 ## dotfiles
 Now that everything is setup, you can use [stow] to create symbolic links to
 the dotfiles. These instructions assume that you've cloned this repo to your
@@ -86,6 +81,12 @@ directories.
 In addition to configuration for various command line tools, I also have some
 configuration for a few linting tools. These are located in directories named
 after the programming language, such as javascript or css.
+
+If you decide to use the bat dotfiles, you'll need to run the following after
+running `stow bat`:
+```bash
+bat cache --build
+```
 
 ## Local Modifications
 Sometimes you want to make changes to configs on a per-machine basis. For
