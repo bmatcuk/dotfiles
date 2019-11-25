@@ -114,6 +114,7 @@ shopt -s histappend
 [ -x /usr/local/bin/lesspipe.sh ] && eval "$(/usr/local/bin/lesspipe.sh)"
 
 # Add homebrew to path
+export HOMEBREW_NO_GITHUB_API=1
 HOMEBREW_PATHS=(
   "/usr/local/bin"
   "/usr/local/sbin"
