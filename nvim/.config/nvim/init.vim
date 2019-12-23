@@ -19,6 +19,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'Shougo/defx.nvim'
 Plug 'kristijanhusak/defx-icons'
 Plug 'kristijanhusak/defx-git'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-notes'
 
 " editing
 Plug 'vim-scripts/restore_view.vim'
