@@ -12,8 +12,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 
 " added functionality
+Plug 'mhinz/vim-startify'
 Plug 'Olical/vim-enmasse'
-Plug 't9md/vim-choosewin'
+Plug 'dstein64/vim-win'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'Shougo/defx.nvim'
@@ -276,9 +277,18 @@ function! s:defx_my_settings() abort
         \ defx#do_action('change_vim_cwd')
 endfunction
 
-" choosewin
-nmap - <Plug>(choosewin)
-let g:choosewin_overlay_enable = 1
+" startify
+let g:startify_session_persistence = 1
+let g:startify_change_to_vcs_root = 1
+let g:startify_enable_special = 0
+let g:startify_change_to_dir = 0
+let g:startify_lists = [
+  \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+  \ { 'type': 'sessions',  'header': ['   Sessions']       },
+\ ]
+
+let g:startify_custom_header = []
+let g:startify_custom_footer = 'startify#pad(split(system("fortune computers linuxcookie softwareengineering | cowsay -f kitten"), "\n"))'
 
 " coc
 "

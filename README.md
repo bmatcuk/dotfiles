@@ -88,6 +88,27 @@ running `stow bat`:
 bat cache --build
 ```
 
+### Fortune and Cowsay
+The files for fortune and [cowsay] must be linked using `/usr/local/share` as
+the [stow] target directory. To do that, run:
+```bash
+stow -d / -t /usr/local/share fortune
+stow -d / -t /usr/local/share cowsay
+```
+
+If you're on OSX and fortune/[cowsay] have been installed via [homebrew], stow
+will complain that it does not "own" the appropriate directories because
+they're already symlinks. Instead, you'll need to use the full path into the
+[homebrew] "Cellar":
+```bash
+stow -t "$(brew --prefix fortune)/share" fortune
+stow -t "$(brew --prefix cowsay)/share" cowsay
+```
+
+The [cowsay] files come from Paul Kaefer's excellent [cowsay-files] repo. I
+have not included the true color cows, and I removed ghostbusters.cow and
+vader.cow because my install of cowsay already included them.
+
 ## Local Modifications
 Sometimes you want to make changes to configs on a per-machine basis. For
 example, you might need some work-specific environment variables. Some configs
@@ -105,6 +126,8 @@ about accidentally committing these things to git:
 [asdf]: https://asdf-vm.com/#/
 [bash]: https://www.gnu.org/software/bash/
 [bat]: https://github.com/sharkdp/bat
+[cowsay-files]: https://github.com/paulkaefer/cowsay-files
+[cowsay]: https://github.com/tnalpgge/rank-amateur-cowsay
 [docker]: https://www.docker.com/community-edition
 [fd]: https://github.com/sharkdp/fd
 [firefox]: https://www.mozilla.org/firefox/
