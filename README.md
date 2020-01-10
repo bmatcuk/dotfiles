@@ -109,6 +109,12 @@ The [cowsay] files come from Paul Kaefer's excellent [cowsay-files] repo. I
 have not included the true color cows, and I removed ghostbusters.cow and
 vader.cow because my install of cowsay already included them.
 
+### Delta
+I'm using [delta] as my git pager. In order to use the [nord] theme, you need
+to compile by hand. Clone my [delta] repo and run `cargo build --release`. Then
+copy the executable (in `target/release/delta`) to your path. Hopefully a
+future version will include the [nord] theme already (bat is working on it!).
+
 ## Local Modifications
 Sometimes you want to make changes to configs on a per-machine basis. For
 example, you might need some work-specific environment variables. Some configs
@@ -128,6 +134,7 @@ about accidentally committing these things to git:
 [bat]: https://github.com/sharkdp/bat
 [cowsay-files]: https://github.com/paulkaefer/cowsay-files
 [cowsay]: https://github.com/tnalpgge/rank-amateur-cowsay
+[delta]: https://github.com/bmatcuk/delta
 [docker]: https://www.docker.com/community-edition
 [fd]: https://github.com/sharkdp/fd
 [firefox]: https://www.mozilla.org/firefox/

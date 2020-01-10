@@ -8,10 +8,7 @@
   root = "!pwd"
 
 [core]
-  pager = diff-so-fancy | less --tabs=2 -FRX
-
-[diff-so-fancy]
-  stripLeadingSymbols = false
+  pager = delta
 
 [push]
   default = current
