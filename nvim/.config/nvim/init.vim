@@ -290,6 +290,11 @@ let g:startify_lists = [
 let g:startify_custom_header = []
 let g:startify_custom_footer = 'startify#pad(split(system("fortune computers linuxcookie softwareengineering | cowsay -f kitten"), "\n"))'
 
+" vim-win - <leader>w will enter vim-mode 'mode'; <space>w will exit vim-win
+" after just one command: this is useful if all you want to do is switch which
+" window is active.
+nnoremap <silent> <space>w :<C-u>Win 1<CR>
+
 " coc
 "
 " coc - general extensions
