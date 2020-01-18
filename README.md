@@ -92,8 +92,8 @@ bat cache --build
 The files for fortune and [cowsay] must be linked using `/usr/local/share` as
 the [stow] target directory. To do that, run:
 ```bash
-stow -d / -t /usr/local/share fortune
-stow -d / -t /usr/local/share cowsay
+stow -t /usr/local/share fortune
+stow -t /usr/local/share cowsay
 ```
 
 If you're on OSX and fortune/[cowsay] have been installed via [homebrew], stow
