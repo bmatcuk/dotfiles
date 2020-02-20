@@ -290,10 +290,12 @@ let g:startify_lists = [
 let g:startify_custom_header = []
 let g:startify_custom_footer = 'startify#pad(split(system("fortune -s computers linuxcookie softwareengineering | cowsay -f kitten"), "\n"))'
 
-" vim-win - <leader>w will enter vim-mode 'mode'; <space>w will exit vim-win
+" vim-win - <leader>w will enter vim-win 'mode'; <space>w will exit vim-win
 " after just one command: this is useful if all you want to do is switch which
-" window is active.
+" window is active. I've also mapped '-' to one-command-mode because I'm used
+" to using it with my previous solution (choosewin).
 nnoremap <silent> <space>w :<C-u>Win 1<CR>
+nnoremap <silent> - :<C-u>Win 1<CR>
 
 " coc
 "
