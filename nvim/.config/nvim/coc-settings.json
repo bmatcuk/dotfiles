@@ -29,5 +29,6 @@
   "suggest.acceptSuggestionOnCommitCharacter": true,
   "suggest.enablePreview": true,
   "suggest.noselect": false,
-  "wxss.validate": false
+  "wxss.validate": false,
+  "yank.enableCompletion": false
 }
