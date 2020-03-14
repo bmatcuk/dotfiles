@@ -43,5 +43,6 @@ cask "firefox-developer-edition"
 cask "keybase"
 cask "stay"
 
+mas "BreakTime", id: 427475982
 mas "Clocker", id: 1056643111
 mas "Xcode", id: 497799835
