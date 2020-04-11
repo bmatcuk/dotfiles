@@ -21,7 +21,7 @@
   prune = true
 
 [merge]
-  tool = opendiff
+  tool = nvim
   conflictstyle = diff3
 
 [merge "npm-merge-driver"]
@@ -31,6 +31,12 @@
 [merge "yarn-merge-driver"]
   name = automatically merge yarn lockfiles
   driver = npx npm-merge-driver merge %A %O %B %P -c yarn
+
+[mergetool]
+  keepBackup = false
+
+[mergetool "nvim"]
+  cmd = nvim -d \"$LOCAL\" \"$BASE\" \"$REMOTE\" \"$MERGED\" -c \"4wincmd w | wincmd J\"
 
 [diff]
   tool = opendiff

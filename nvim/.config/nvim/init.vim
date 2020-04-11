@@ -414,6 +414,12 @@ augroup myfilespecific
   autocmd BufEnter * :syntax sync fromstart
 augroup END
 
+if &diff
+  map <leader>1 :diffget LOCAL<cr>
+  map <leader>2 :diffget BASE<cr>
+  map <leader>3 :diffget REMOTE<cr>
+endif
+
 " rainbow settings
 let g:rainbow_active = 1
 let g:rainbow_conf = {
