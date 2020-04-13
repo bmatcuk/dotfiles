@@ -420,6 +420,11 @@ if &diff
   map <leader>3 :diffget REMOTE<cr>
 endif
 
+" When using C-u or C-w to delete the line/last word in insert mode, start a
+" new change as far as undo is concerned (so you can press esc u to undo)
+inoremap <C-u> <C-g>u<C-u>
+inoremap <C-w> <C-g>u<C-w>
+
 " rainbow settings
 let g:rainbow_active = 1
 let g:rainbow_conf = {
