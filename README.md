@@ -118,6 +118,15 @@ about accidentally committing these things to git:
 * `~/.gitconfig.local`
 * `~/.ssh/config.local`
 
+## Some Manual Changes
+Here are a few manual changes I make when setting up a new system:
+
+### Set the Dock size and make the size immutable
+```
+defaults write com.apple.dock tilesize -float 32
+defaults write com.apple.dock size-immutable -bool yes
+```
+
 [1password]: https://1password.com/
 [Hack]: http://sourcefoundry.org/hack/
 [Nerd Font]: https://github.com/ryanoasis/nerd-fonts
