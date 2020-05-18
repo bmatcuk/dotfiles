@@ -393,6 +393,12 @@ nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
 nmap <silent> <leader>ac <Plug>(coc-codeaction)
 nmap <silent> <leader>qf <Plug>(coc-fix-current)
 
+" coc-git
+nmap <silent> [g <Plug>(coc-git-prevchunk)
+nmap <silent> ]g <Plug>(coc-git-nextchunk)
+nmap <silent> gu :CocCommand git.chunkUndo<CR>
+nmap <silent> gs :CocCommand git.chunkStage<CR>
+
 " coc list shortcuts
 nnoremap <silent> <leader>be :<C-u>CocList --normal buffers<cr>
 nnoremap <silent> <space>a :<C-u>CocList diagnostics<cr>
