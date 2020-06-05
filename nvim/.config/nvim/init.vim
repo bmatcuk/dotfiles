@@ -396,8 +396,8 @@ nmap <silent> <leader>qf <Plug>(coc-fix-current)
 " coc-git
 nmap <silent> [g <Plug>(coc-git-prevchunk)
 nmap <silent> ]g <Plug>(coc-git-nextchunk)
-nmap <silent> gu :CocCommand git.chunkUndo<CR>
-nmap <silent> gs :CocCommand git.chunkStage<CR>
+nmap <silent> <leader>gu :CocCommand git.chunkUndo<CR>
+nmap <silent> <leader>gs :CocCommand git.chunkStage<CR>
 
 " coc list shortcuts
 nnoremap <silent> <leader>be :<C-u>CocList --normal buffers<cr>
