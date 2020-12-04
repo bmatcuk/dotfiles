@@ -83,7 +83,7 @@ if executable('rg')
   command! -nargs=* Rg
     \ call fzf#vim#grep(
     \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-    \   fzf#vim#with_preview({'options': '--nth=4.. --delimiter=:'}, 'right:50%'),
+    \   fzf#vim#with_preview({'options': '--nth=4.. --delimiter=:'}, 'right:50%:nohidden'),
     \   0)
 
   " :grep! --args query
