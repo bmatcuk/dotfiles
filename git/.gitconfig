@@ -17,6 +17,9 @@
   default = current
   followTags = true
 
+[pull]
+	rebase = true
+
 [fetch]
   prune = true
 
