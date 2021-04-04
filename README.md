@@ -117,6 +117,7 @@ about accidentally committing these things to git:
 * `~/.bash_profile.local`
 * `~/.gitconfig.local`
 * `~/.ssh/config.local`
+* `~/.config/nvim/local.vim`
 
 ## Some Manual Changes
 Here are a few manual changes I make when setting up a new system:
