@@ -175,6 +175,7 @@ alias qpreview='qlmanage -p &>/dev/null'
 alias preview="fzf --preview 'bat --color \"always\" {}' --preview-window :nohidden --height 100% --no-border"
 export EDITOR=nvim
 export VISUAL=nvim
+export GPG_TTY=$(tty)
 
 # Audio stops working on my Macbook Pro with Touchbar ALL THE DAMN TIME.
 function fixaudio {
