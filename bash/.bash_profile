@@ -162,10 +162,8 @@ function _fzf_compgen_dir {
 }
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-complete -F _fzf_path_completion -o default -o bashdefault bat
-complete -F _fzf_path_completion -o default -o bashdefault tig
-complete -F _fzf_dir_completion -o default -o bashdefault fd
-complete -F _fzf_dir_completion -o default -o bashdefault rg
+_fzf_setup_completion path bat tig
+_fzf_setup_completion dir fd rg
 
 # Misc
 alias vi='nvim'
