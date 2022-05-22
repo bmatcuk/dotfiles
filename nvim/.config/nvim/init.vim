@@ -3,7 +3,7 @@
 " Install vim-plug first: https://github.com/junegunn/vim-plug
 " Then start nvim with:
 "   nvim +PlugInstall +UpdateRemotePlugins
-call plug#begin()
+call plug#begin('~/.config/nvim/plugged')
 " general plugins
 Plug 'tpope/vim-sensible'
 Plug 'guns/xterm-color-table.vim'
@@ -316,6 +316,7 @@ let g:coc_global_extensions = extend(g:coc_global_extensions, [
   \ 'coc-tsserver',
   \ 'coc-go',
   \ 'coc-rls',
+  \ 'coc-flutter',
 \])
 
 " coc - linter extensions
@@ -425,6 +426,10 @@ if &diff
   map <leader>2 :diffget BASE<cr>
   map <leader>3 :diffget REMOTE<cr>
 endif
+
+" vim-polyglot will only set the filetype to glsl if the file extension is
+" .frag and the file has some glsl-looking stuff.
+au BufRead,BufNewFile *.frag set filetype=glsl
 
 " When using C-u or C-w to delete the line/last word in insert mode, start a
 " new change as far as undo is concerned (so you can press esc u to undo)

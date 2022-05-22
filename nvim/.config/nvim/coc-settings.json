@@ -1,5 +1,6 @@
 {
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.formatOnSaveFiletypes": ["dart"],
   "coc.source.around.enable": false,
   "coc.source.buffer.enable": false,
   "css.validate": false,
@@ -13,6 +14,7 @@
     "typescript",
     "typescriptreact"
   ],
+  "flutter.sdk.flutter-lookup": "asdf which flutter",
   "git.addGBlameToVirtualText": true,
   "less.validate": false,
   "lists.disabledLists": [

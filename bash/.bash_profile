@@ -136,7 +136,8 @@ export PATH=$PATH:./node_modules/.bin
 # asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 export NODEJS_CHECK_SIGNATURES=no
 export GOPATH=$HOME/go
-. /usr/local/opt/asdf/asdf.sh
+# . /usr/local/opt/asdf/asdf.sh
+. /usr/local/opt/asdf/libexec/asdf.sh
 
 # brew install bat (https://github.com/sharkdp/bat)
 export BAT_THEME="nord"
