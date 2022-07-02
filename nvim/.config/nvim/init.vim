@@ -417,7 +417,6 @@ augroup myfilespecific
   autocmd!
   autocmd filetype crontab setlocal nobackup nowritebackup
   autocmd filetype go setlocal noexpandtab
-  autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
   autocmd BufEnter * :syntax sync fromstart
 augroup END
 
