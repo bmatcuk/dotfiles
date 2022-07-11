@@ -90,7 +90,7 @@ Before running `stow nvim`, you'll want to create a directory for the nvim
 config, otherwise [vim-plug] will end up creating a directory that'll be
 symlinked back into this repo.
 ```bash
-mkdir -p ~/.config/nvim/plugged
+mkdir -p ~/.config/nvim
 stow nvim
 ```
 
@@ -100,6 +100,14 @@ asdf, homebrew, or your favorite method). Next, you'll need to install
 ```bash
 pip3 install pynvim
 nvim +PlugInstall +UpdateRemotePlugins
+```
+
+### gnupg
+Like nvim, you'll want to create the config directory before running stow:
+```bash
+mkdir ~/.gnupg
+chmod 0700 ~/.gnupg
+stow gnupg
 ```
 
 ### Fortune and Cowsay
