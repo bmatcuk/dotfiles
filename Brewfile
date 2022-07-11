@@ -1,4 +1,5 @@
 tap "cjbassi/gotop"
+tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 
 brew "asdf"

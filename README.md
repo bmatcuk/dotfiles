@@ -13,7 +13,6 @@ other command line tools I find useful as a developer:
 * [docker] - installs Docker for Mac; no virtualbox required
 * [fd] - like find but way easier
 * [fzf] - fuzzy matching for file names and command completion
-* [httpie] - like curl but easier
 * [jq] - parse json on the command line
 * [ripgrep] - like grep but way faster
 * [thefuck] - for fixing common typos
@@ -22,10 +21,8 @@ other command line tools I find useful as a developer:
 
 The Brewfile will also install some other programs that I tend to install on
 all of my machines, such as:
-* [1password] - for password management
 * [alfred] - like Spotlight but more powerful
 * [flux] - save your eyes from the blue light
-* [firefox] - a browser with some conscience; includes the dev build
 * [keybase] - encryption with friends
 * [stay] - make windows stay put, even when switching monitors
 
@@ -128,7 +125,6 @@ defaults write com.apple.dock tilesize -float 32
 defaults write com.apple.dock size-immutable -bool yes
 ```
 
-[1password]: https://1password.com/
 [Hack]: http://sourcefoundry.org/hack/
 [Nerd Font]: https://github.com/ryanoasis/nerd-fonts
 [alacritty]: https://github.com/jwilm/alacritty
@@ -140,11 +136,9 @@ defaults write com.apple.dock size-immutable -bool yes
 [cowsay]: https://github.com/tnalpgge/rank-amateur-cowsay
 [docker]: https://www.docker.com/community-edition
 [fd]: https://github.com/sharkdp/fd
-[firefox]: https://www.mozilla.org/firefox/
 [flux]: https://justgetflux.com/
 [fzf]: https://github.com/junegunn/fzf
 [homebrew]: https://brew.sh/
-[httpie]: https://httpie.org/
 [jq]: https://stedolan.github.io/jq/
 [keybase]: https://keybase.io/
 [neovim]: https://neovim.io/
