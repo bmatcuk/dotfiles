@@ -85,6 +85,23 @@ running `stow bat`:
 bat cache --build
 ```
 
+### nvim
+Before running `stow nvim`, you'll want to create a directory for the nvim
+config, otherwise [vim-plug] will end up creating a directory that'll be
+symlinked back into this repo.
+```bash
+mkdir -p ~/.config/nvim/plugged
+stow nvim
+```
+
+After running `stow nvim`, you'll need to install python3 and node (maybe via
+asdf, homebrew, or your favorite method). Next, you'll need to install
+[vim-plug] and then run:
+```bash
+pip3 install pynvim
+nvim +PlugInstall +UpdateRemotePlugins
+```
+
 ### Fortune and Cowsay
 The files for fortune and [cowsay] must be linked using `/usr/local/share` as
 the [stow] target directory. To do that, run:
@@ -150,3 +167,4 @@ defaults write com.apple.dock size-immutable -bool yes
 [tig]: https://jonas.github.io/tig/
 [tldr]: https://tldr.sh/
 [tmux]: https://tmux.github.io/
+[vim-plug]: https://github.com/junegunn/vim-plug

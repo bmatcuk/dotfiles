@@ -113,10 +113,6 @@ mouse:
   triple_click: { threshold: 300 }
   hide_when_typing: false
 
-  url:
-    launcher: None
-    modifiers: None
-
 key_bindings:
   - { key: Paste,                   action: Paste                            }
   - { key: Copy,                    action: Copy                             }
