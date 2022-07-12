@@ -79,11 +79,22 @@ In addition to configuration for various command line tools, I also have some
 configuration for a few linting tools. These are located in directories named
 after the programming language, such as javascript or css.
 
+### bat
 If you decide to use the bat dotfiles, you'll need to run the following after
 running `stow bat`:
 ```bash
 bat cache --build
 ```
+
+### bash and fzf
+After installing fzf and running `stow bash`, you need to install the fzf bash
+scripts:
+```bash
+$(brew --prefix fzf)/install --no-zsh --no-fish
+```
+
+Answer yes to auto-completion and key bindings, but answer no to updating the
+shell configuration file.
 
 ### nvim
 Before running `stow nvim`, you'll want to create a directory for the nvim
