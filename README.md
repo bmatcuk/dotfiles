@@ -96,6 +96,10 @@ $(brew --prefix fzf)/install --no-zsh --no-fish
 Answer yes to auto-completion and key bindings, but answer no to updating the
 shell configuration file.
 
+### tmux
+After running `stow tmux` and starting tmux, install plugins by typing
+`prefix + I` - that's the tmux prefix (typically Ctrl+B) followed by Shift+i.
+
 ### nvim
 Before running `stow nvim`, you'll want to create a directory for the nvim
 config, otherwise [vim-plug] will end up creating a directory that'll be
