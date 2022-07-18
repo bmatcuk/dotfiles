@@ -161,8 +161,9 @@ Here are a few manual changes I make when setting up a new system:
 
 ### Set the Dock size and make the size immutable
 ```
-defaults write com.apple.dock tilesize -float 32
+defaults write com.apple.dock tilesize -int 32
 defaults write com.apple.dock size-immutable -bool yes
+killall Dock
 ```
 
 [Hack]: http://sourcefoundry.org/hack/
