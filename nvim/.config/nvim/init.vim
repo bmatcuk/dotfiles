@@ -74,6 +74,9 @@ colorscheme nord
 let mapleader=","
 nnoremap <silent> <leader>/ :nohlsearch<CR>
 
+" neovim maps Y to y$, but I can't undo years of muscle memory
+unmap Y
+
 " brew install fzf
 nnoremap <C-p> :Files<CR>
 let g:fzf_layout = { 'down': '~30%' }
