@@ -38,6 +38,7 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
+Plug 'unblevable/quick-scope'
 call plug#end()
 
 " pip3 install pynvim
