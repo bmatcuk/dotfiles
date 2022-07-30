@@ -281,13 +281,24 @@ function! s:defx_my_settings() abort
 endfunction
 
 " startify
+function! s:startifyGitModified()
+  let files = systemlist('git ls-files -m 2>/dev/null')
+  return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+function! s:startifyGitUntracked()
+  let files = systemlist('git ls-files -o --exclude-standard 2>/dev/null')
+  return map(files, "{'line': v:val, 'path': v:val}")
+endfunction
+
 let g:startify_session_persistence = 1
 let g:startify_change_to_vcs_root = 1
 let g:startify_enable_special = 0
 let g:startify_change_to_dir = 0
 let g:startify_lists = [
-  \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-  \ { 'type': 'sessions',  'header': ['   Sessions']       },
+  \ { 'header': ['   MRU '. getcwd()], 'type': 'dir'                              },
+  \ { 'header': ['   Git Modified'],   'type': function('s:startifyGitModified')  },
+  \ { 'header': ['   Git Untracked'],  'type': function('s:startifyGitUntracked') },
+  \ { 'header': ['   Sessions'],       'type': 'sessions'                         },
 \ ]
 
 let g:startify_custom_header = []
