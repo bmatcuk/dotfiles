@@ -207,6 +207,11 @@ augroup mylightline
   autocmd ColorScheme * call s:patch_lightline_colorscheme()
 augroup END
 
+" seems to be some sort of weird loop going on with lightline which causes
+" switching buffers to be slow, and it gets worse as time goes on... I have no
+" idea what problems this fix might cause...
+autocmd VimEnter * autocmd! lightline SessionLoadPost
+
 " execute macros over a visual selection with @x where x = macro register
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()
