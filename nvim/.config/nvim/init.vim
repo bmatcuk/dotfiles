@@ -335,7 +335,7 @@ let g:coc_global_extensions = extend(g:coc_global_extensions, [
   \ 'coc-json',
   \ 'coc-tsserver',
   \ 'coc-go',
-  \ 'coc-rls',
+  \ 'coc-rust-analyzer',
   \ 'coc-flutter',
 \])
 
