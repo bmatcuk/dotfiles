@@ -1,4 +1,4 @@
-" Recommended nvim 0.4.0+ (brew install --HEAD neovim)
+" Recommended nvim 0.8.0+ (brew install --HEAD neovim)
 "
 " Install vim-plug first: https://github.com/junegunn/vim-plug
 " Then start nvim with:
@@ -22,6 +22,10 @@ Plug 'kristijanhusak/defx-icons'
 Plug 'kristijanhusak/defx-git'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'airblade/vim-gitgutter'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 
 " editing
 Plug 'vim-scripts/restore_view.vim'
@@ -36,7 +40,14 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-vsnip'
 Plug 'honza/vim-snippets'
 Plug 'unblevable/quick-scope'
 call plug#end()
@@ -67,6 +78,7 @@ set shortmess+=c
 set signcolumn=yes
 set noshowmode
 set showtabline=2
+set completeopt=menu,menuone,noselect
 autocmd VimResized * wincmd =
 
 set background=dark
@@ -80,6 +92,7 @@ unmap Y
 
 " brew install fzf
 nnoremap <C-p> :Files<CR>
+nnoremap <silent> <leader>be :<C-u>Buffers<CR>
 let g:fzf_layout = { 'down': '~30%' }
 
 " brew install ripgrep
@@ -116,17 +129,15 @@ let g:lightline = {
       \ ['readonly', 'filename', 'currentfunc']
     \ ],
     \ 'right': [
-      \ ['percent', 'line', 'column'],
-      \ ['fileencodingandformat'],
+      \ ['fileencodingandformat', 'percent', 'line', 'column'],
       \ ['filetype'],
-      \ ['cocwarning', 'cocerror']
+      \ ['lspstatus', 'lspwarning', 'lsperror']
     \ ]
   \ },
   \ 'inactive': {
     \ 'left': [['relativepath']],
     \ 'right': [
-      \ ['percent', 'line', 'column'],
-      \ ['fileencodingandformat'],
+      \ ['fileencodingandformat', 'percent', 'line', 'column'],
       \ ['filetype']
     \ ]
   \ },
@@ -150,13 +161,14 @@ let g:lightline = {
   \ },
   \ 'component_expand': {
     \ 'buffers': 'lightline#bufferline#buffers',
-    \ 'cocerror': 'LightlineCocError',
-    \ 'cocwarning': 'LightlineCocWarning',
+    \ 'lsperror': 'LightlineLspError',
+    \ 'lspwarning': 'LightlineLspWarning',
+    \ 'lspstatus': 'LightlineLspStatus',
   \ },
   \ 'component_type': {
     \ 'buffers': 'tabsel',
-    \ 'cocerror': 'error',
-    \ 'cocwarning': 'warning'
+    \ 'lsperror': 'error',
+    \ 'lspwarning': 'warning'
   \ }
 \}
 
@@ -164,27 +176,34 @@ function! LightlineReadonly()
   return &readonly ? '' : ''
 endfunction
 function! LightlineGitStatus()
-  return get(g:, 'coc_git_status', '')
+  let l:branch = get(b:, 'git_branch_status', '')
+  if empty(l:branch)
+    return ''
+  endif
+  return ' '.l:branch
 endfunction
 function! LightlineCurrentFunc()
-  let l:func = get(b:, 'coc_current_function', '')
+  let l:func = get(b:, 'lsp_current_function', '')
   if empty(l:func)
     return ''
   endif
   return '('.l:func.')'
 endfunction
-function! s:lightline_coc_diagnostic(kind, sign) abort
-  let info = get(b:, 'coc_diagnostic_info', 0)
-  if empty(info) || get(info, a:kind, 0) == 0
+function! s:lightline_lsp_diagnostic(severity, sign) abort
+  let l:count = luaeval("#vim.diagnostic.get(0, { severity = _A })", a:severity)
+  if l:count == 0
     return ''
   endif
-  return a:sign.' '.info[a:kind]
+  return a:sign.' '.l:count
 endfunction
-function! LightlineCocError()
-  return s:lightline_coc_diagnostic('error', '✗')
+function! LightlineLspError()
+  return s:lightline_lsp_diagnostic(luaeval('vim.diagnostic.severity.ERROR'), '✗')
 endfunction
-function! LightlineCocWarning()
-  return s:lightline_coc_diagnostic('warning', '◆')
+function! LightlineLspWarning()
+  return s:lightline_lsp_diagnostic(luaeval('vim.diagnostic.severity.WARN'), '◆')
+endfunction
+function! LightlineLspStatus()
+  return luaeval("require'lsp-status/statusline'.progress()")
 endfunction
 
 " update colors for lightline errors and warnings
@@ -203,7 +222,6 @@ call s:patch_lightline_colorscheme()
 
 augroup mylightline
   autocmd!
-  autocmd User CocDiagnosticChange call lightline#update()
   autocmd ColorScheme * call s:patch_lightline_colorscheme()
 augroup END
 
@@ -317,120 +335,199 @@ let g:startify_custom_footer = 'startify#pad(split(system("fortune -s computers 
 nnoremap <silent> <space>w :<C-u>Win 1<CR>
 nnoremap <silent> - :<C-u>Win 1<CR>
 
-" coc
-"
-" coc - general extensions
-let g:coc_global_extensions = [
-  \ 'coc-snippets',
-  \ 'coc-lists',
-  \ 'coc-git',
-  \ 'coc-yank',
-  \ 'coc-pairs',
-\]
+" gitgutter
+nmap <silent> ]h <Plug>(GitGutterNextHunk)
+nmap <silent> [h <Plug>(GitGutterPrevHunk)
 
-" coc - language extensions
-let g:coc_global_extensions = extend(g:coc_global_extensions, [
-  \ 'coc-html',
-  \ 'coc-css',
-  \ 'coc-json',
-  \ 'coc-tsserver',
-  \ 'coc-go',
-  \ 'coc-rust-analyzer',
-  \ 'coc-flutter',
-\])
+" lsp
+lua << EOL
+require'mason'.setup()
+require'mason-lspconfig'.setup {
+  automatic_installation = true
+}
 
-" coc - linter extensions
-let g:coc_global_extensions = extend(g:coc_global_extensions, [
-  \ 'coc-eslint',
-  \ 'coc-stylelintplus',
-\])
+local lspstatus = require('lsp-status')
+lspstatus.config { show_filename = false }
+lspstatus.register_progress()
 
-" coc - tab/stab to cycle through completions/snippet jump locations
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump', ''])\<CR>" :
-  \ "\<TAB>"
-inoremap <silent><expr><S-TAB>
-  \ pumvisible() ? "\<C-p>" :
-  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('snippetPrev', [])\<CR>" :
-  \ "\<S-TAB>"
+local lspconfig = require('lspconfig')
+local capabilities = vim.tbl_deep_extend(
+  'keep',
+  require'cmp_nvim_lsp'.default_capabilities(),
+  lspstatus.capabilities,
+  vim.lsp.protocol.make_client_capabilities()
+)
 
-" coc - enter to confirm completion
-inoremap <silent><expr> <cr>
-  \ pumvisible() ? coc#_select_confirm() :
-  \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+-- npm i -g vscode-langservers-extracted
+lspconfig.html.setup {
+  capabilities = capabilities,
+  on_attach = lspstatus.on_attach
+}
+lspconfig.cssls.setup {
+  capabilities = capabilities,
+  on_attach = lspstatus.on_attach,
+  settings = {
+    css = { validate = false },
+    less = { validate = false },
+    scss = { validate = false }
+  }
+}
+lspconfig.jsonls.setup {
+  capabilities = capabilities,
+  on_attach = lspstatus.on_attach
+}
+lspconfig.eslint.setup {
+  capabilities = capabilities,
+  on_attach = lspstatus.on_attach
+}
 
-" coc - hide floats; restart (unfortunately, some extensions break every now and again)
-nmap <silent> <leader>ch <Plug>(coc-float-hide)
-nmap <silent> <leader>cr :<C-u>CocRestart<cr>
+-- npm i -g typescript typescript-language-server
+lspconfig.tsserver.setup {
+  capabilities = capabilities,
+  on_attach = lspstatus.on_attach
+}
 
-" coc - navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+-- npm i -g stylelint-lsp
+lspconfig.stylelint_lsp.setup{
+  capabilities = capabilities,
+  on_attach = lspstatus.on_attach,
+  settings = {
+    stylelintplus = {
+      autoFixOnFormat = true
+    }
+  }
+}
 
-" coc - goto mappings
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+lspconfig.gopls.setup {
+  capabilities = capabilities,
+  on_attach = lspstatus.on_attach
+}
+lspconfig.rust_analyzer.setup {
+  capabilities = capabilities,
+  on_attach = lspstatus.on_attach
+}
+lspconfig.dartls.setup {
+  capabilities = capabilities,
+  on_attach = lspstatus.on_attach
+}
+EOL
 
-" coc - show documentation with K
-" set keywordprg=:call\ <SID>show_documentation()
-nmap <silent> <space>d <Plug>(coc-diagnostic-info)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" lsp related colors
+hi default link LspReferenceText CursorColumn
+hi default link LspReferenceRead LspReferenceText
+hi default link LspReferenceWrite LspReferenceText
 
+" lsp - navigate diagnostics
+nnoremap <silent> [d :call v:lua.vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> ]d :call v:lua.vim.diagnostic.goto_next()<CR>
+nmap <silent> <space>d :call v:lua.vim.diagnostic.open_float({'focusable':0,'close_events':['CursorMoved','CursorMovedI','BufHidden','InsertCharPre','WinLeave']})<CR>
+
+" lsp - navigation and information
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call v:lua.vim.lsp.buf.hover()
   endif
 endfunction
 
-augroup mycoc
+nnoremap <silent> <space>D :call v:lua.vim.lsp.buf.type_definition<CR>
+nnoremap <silent> gD :call v:lua.vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gd :call v:lua.vim.lsp.buf.definition()<CR>
+nnoremap <silent> <C-K> :call v:lua.vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> gi :call v:lua.vim.lsp.buf.implementation()<CR>
+nnoremap <silent> gr :call v:lua.vim.lsp.buf.references()<CR>
+
+augroup mylsp
   autocmd!
 
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-
-  " coc - highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  "highlight symbol under cursor on CursorHold
+  autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+  autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+  autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 augroup END
 
-" coc - mapping to rename current word
-nmap <silent> <leader>rn <Plug>(coc-rename)
+" lsp - make changes
+nnoremap <silent> <leader>rn :call v:lua.vim.lsp.buf.rename()<CR>
+nnoremap <silent> <space>ca :call v:lua.vim.lsp.buf.code_action()<CR>
+nnoremap <silent> <leader>f :call v:lua.vim.lsp.buf.format()<CR>
 
-" coc - format region
-xmap <silent> <leader>f <Plug>(coc-format-selected)
-nmap <silent> <leader>f <Plug>(coc-format-selected)
+" lsp - changes to a range
+xnoremap <silent> <leader>f :call v:lua.vim.lsp.buf.range_formatting()<CR>
+xnoremap <silent> <space>ca :call v:lua.vim.lsp.buf.range_code_action()<CR>
 
-" coc - format entire file using :Format
-command! -nargs=0 Format :call CocAction('format')
+" format entire file using :Format
+command! -nargs=0 Format :call v:lua.vim.lsp.buf.format()<CR>
 
-" coc - code action on region
-xmap <silent> <leader>a <Plug>(coc-codeaction-selected)
-nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
+" completion
+lua << EOL
+local cmp = require'cmp'
 
-" coc - code action / fix current line
-nmap <silent> <leader>ac <Plug>(coc-codeaction)
-nmap <silent> <leader>qf <Plug>(coc-fix-current)
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
-" coc-git
-nmap <silent> [g <Plug>(coc-git-prevchunk)
-nmap <silent> ]g <Plug>(coc-git-nextchunk)
-nmap <silent> <leader>gu :CocCommand git.chunkUndo<CR>
-nmap <silent> <leader>gs :CocCommand git.chunkStage<CR>
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
 
-" coc list shortcuts
-nnoremap <silent> <leader>be :<C-u>CocList --normal buffers<cr>
-nnoremap <silent> <space>a :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <space>c :<C-u>CocList commands<cr>
-nnoremap <silent> <space>h :<C-u>CocList cmdhistory<cr>
-nnoremap <silent> <space>l :<C-u>CocList lists<cr>
-nnoremap <silent> <space>m :<C-u>CocList marks<cr>
-nnoremap <silent> <space>o :<C-u>CocList outline<cr>
-nnoremap <silent> <space>r :<C-u>CocList mru<cr>
-nnoremap <silent> <space>s :<C-u>CocList -I symbols<cr>
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif vim.fn['vsnip#jumpable'](1) == 1 then
+        feedkey("<Plug>(vsnip-jump-next)", "")
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif vim.fn['vsnip#jumpable'](-1) == 1 then
+        feedkey("<Plug>(vsnip-jump-prev)", "")
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    ['<CR>'] = cmp.mapping.confirm()
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp', max_item_count = 5 },
+    { name = 'path', max_item_count = 5 }
+  }, {
+    { name = 'buffer', max_item_count = 5 }
+  })
+}
+
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer', max_item_count = 5 }
+  }
+})
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path', max_item_count = 5 }
+  }, {
+    { name = 'cmdline', max_item_count = 5 }
+  })
+})
+EOL
 
 " filetype-specific
 augroup myfilespecific
@@ -454,6 +551,36 @@ au BufRead,BufNewFile *.frag set filetype=glsl
 " new change as far as undo is concerned (so you can press esc u to undo)
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-w> <C-g>u<C-w>
+
+function! s:update_git_branch_status(path)
+  let l:lines = systemlist('git -C "'.a:path.'" status -bs --porcelain 2>/dev/null')
+  let l:status = ''
+  if len(l:lines) > 0
+    let l:status = matchstr(l:lines[0], '\v## \zs\w+\ze(...|$)')
+    if match(l:lines, '\v^\s*M') >= 0
+      let l:status = l:status.'*'
+    endif
+    if match(l:lines, '\v^\s*A') >= 0
+      let l:status = l:status.'+'
+    endif
+    if match(l:lines, '\v^\s*D') >= 0
+      let l:status = l:status.'-'
+    endif
+  endif
+  let b:git_branch_status = l:status
+endfunction
+
+augroup gitbranchstatus
+  autocmd!
+  autocmd BufNewFile,BufReadPost,BufWritePost * call s:update_git_branch_status(expand('<amatch>:p:h'))
+  autocmd BufEnter * call s:update_git_branch_status(expand('%:p:h'))
+augroup END
+
+" return cursor position after loading a file
+autocmd BufReadPost * silent! normal! g`"zv
+
+" highlight yanked text
+au TextYankPost * silent! lua vim.highlight.on_yank()
 
 " rainbow settings
 let g:rainbow_active = 1
