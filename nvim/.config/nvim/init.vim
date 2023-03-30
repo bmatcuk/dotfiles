@@ -443,9 +443,9 @@ augroup mylsp
   autocmd!
 
   "highlight symbol under cursor on CursorHold
-  autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-  autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-  autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+  autocmd CursorHold <buffer> silent! lua vim.lsp.buf.document_highlight()
+  autocmd CursorHoldI <buffer> silent! lua vim.lsp.buf.document_highlight()
+  autocmd CursorMoved <buffer> silent! lua vim.lsp.buf.clear_references()
 augroup END
 
 " lsp - make changes
