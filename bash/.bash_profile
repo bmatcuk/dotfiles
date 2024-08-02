@@ -27,19 +27,19 @@ function prompt {
   local DIR_PREFIX=""
   for i in $(seq 1 $(echo "$DIR"|tr -cd '/'|wc -c)); do
     if [[ -f "${DIR_PREFIX}Gemfile" ]]; then
-      TOOL_ICON="\uE791"
+      TOOL_ICON="\uE739"
       TOOL="ruby"
       break
     elif [[ -f "${DIR_PREFIX}package.json" ]]; then
-      TOOL_ICON="\uF898"
+      TOOL_ICON="\uE781"
       TOOL="nodejs"
       break
     elif [[ -f "${DIR_PREFIX}go.mod" ]]; then
-      TOOL_ICON="\uE627"
+      TOOL_ICON="\uE724"
       TOOL="golang"
       break
     elif [[ -f "${DIR_PREFIX}Cargo.toml" ]]; then
-      TOOL_ICON="\uE7A8"
+      TOOL_ICON="\uE7a8"
       TOOL="rust"
       break
     fi
@@ -54,7 +54,7 @@ function prompt {
     # subtract 4 from WIDTH for space, double hard arrow, space that separates
     # jobs count from directory
     echo -en "$(tput bold)$(tput setab 4)$(tput setaf 0) "
-    ellipsis_echo "\uF77A $JOBS" $WIDTH
+    ellipsis_echo "\uEf96 $JOBS" $WIDTH
     WIDTH=$(( $WIDTH - $? - 4 ))
     echo -en " $(tput sgr0)$(tput setab 0)$(tput setaf 4)$HARD_ARROW"
     echo -en "$(tput setab 6)$(tput setaf 0)$HARD_ARROW$(tput sgr0)"
@@ -134,6 +134,7 @@ export PATH=$PATH:./node_modules/.bin
 # asdf - brew install asdf
 # asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
 # asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 export NODEJS_CHECK_SIGNATURES=no
 export GOPATH=$HOME/go
 # . /usr/local/opt/asdf/asdf.sh
