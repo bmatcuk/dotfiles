@@ -343,7 +343,7 @@ nmap <silent> [h <Plug>(GitGutterPrevHunk)
 lua << EOL
 require'mason'.setup()
 require'mason-lspconfig'.setup {
-  automatic_installation = true
+  automatic_installation = { exclude = { "zls" } }
 }
 
 local lspstatus = require('lsp-status')
@@ -407,6 +407,11 @@ lspconfig.rust_analyzer.setup {
   on_attach = lspstatus.on_attach
 }
 lspconfig.dartls.setup {
+  capabilities = capabilities,
+  on_attach = lspstatus.on_attach
+}
+
+lspconfig.zls.setup {
   capabilities = capabilities,
   on_attach = lspstatus.on_attach
 }
