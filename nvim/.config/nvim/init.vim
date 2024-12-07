@@ -552,6 +552,10 @@ endif
 " .frag and the file has some glsl-looking stuff.
 au BufRead,BufNewFile *.frag set filetype=glsl
 
+" zig
+let g:zig_fmt_parse_errors = 0
+let g:zig_fmt_autosave = 0
+
 " When using C-u or C-w to delete the line/last word in insert mode, start a
 " new change as far as undo is concerned (so you can press esc u to undo)
 inoremap <C-u> <C-g>u<C-u>
