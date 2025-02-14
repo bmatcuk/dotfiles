@@ -153,7 +153,7 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 
 # brew install fzf (https://github.com/junegunn/fzf)
 # brew install fd (https://github.com/sharkdp/fd)
-export FZF_DEFAULT_OPTS='--height 20% --no-mouse --bind="ctrl-o:execute(vim {})+abort,ctrl-v:toggle-preview,ctrl-d:preview-page-down,ctrl-u:preview-page-up" --no-border --preview="bat --color always {}" --preview-window="right:hidden"'
+export FZF_DEFAULT_OPTS='--style minimal --height 20% --no-mouse --bind="ctrl-o:execute(vim {})+abort,ctrl-p:toggle-preview,ctrl-d:preview-page-down,ctrl-u:preview-page-up" --no-border --preview="bat --color always {}" --preview-window="right:hidden"'
 export FZF_DEFAULT_COMMAND='(git ls-files -co --exclude-standard || fd -tf -tl) 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 function _fzf_compgen_path {

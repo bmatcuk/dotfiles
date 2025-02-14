@@ -443,6 +443,7 @@ nnoremap <silent> <C-K> :call v:lua.vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <silent> gi :call v:lua.vim.lsp.buf.implementation()<CR>
 nnoremap <silent> gr :call v:lua.vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>d :call v:lua.vim.diagnostic.setqflist()<CR>
 
 augroup mylsp
   autocmd!
