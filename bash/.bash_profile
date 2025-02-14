@@ -139,6 +139,7 @@ export NODEJS_CHECK_SIGNATURES=no
 export GOPATH=$HOME/go
 # . /usr/local/opt/asdf/asdf.sh
 #. /usr/local/opt/asdf/libexec/asdf.sh
+export PATH=$HOME/.asdf/shims:$PATH
 
 # brew install bat (https://github.com/sharkdp/bat)
 export BAT_THEME="nord"

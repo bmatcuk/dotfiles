@@ -7,7 +7,7 @@ call plug#begin('~/.config/nvim/plugged')
 " general plugins
 Plug 'tpope/vim-sensible'
 Plug 'guns/xterm-color-table.vim'
-Plug 'arcticicestudio/nord-vim'
+Plug 'bmatcuk/nord-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 
@@ -382,7 +382,7 @@ lspconfig.eslint.setup {
 }
 
 -- npm i -g typescript typescript-language-server
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   capabilities = capabilities,
   on_attach = lspstatus.on_attach
 }
