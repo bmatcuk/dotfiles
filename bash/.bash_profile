@@ -70,7 +70,7 @@ function prompt {
   # tool version - also subtract 3 for space, hard arrow, space
   if [ -n "$TOOL" ]; then
     echo -en "$(tput setab 0)$HARD_ARROW $(tput setaf 7)$(tput bold)"
-    ellipsis_echo "$TOOL_ICON $(asdf current $TOOL | awk '{print $2}')" $WIDTH
+    ellipsis_echo "$TOOL_ICON $(asdf current $TOOL | tail -n1 | awk '{print $2}')" $WIDTH
     WIDTH=$(( $WIDTH - $? - 3 ))
     echo -en " $(tput sgr0)$(tput setaf 0)"
   fi
@@ -138,7 +138,7 @@ export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 export NODEJS_CHECK_SIGNATURES=no
 export GOPATH=$HOME/go
 # . /usr/local/opt/asdf/asdf.sh
-. /usr/local/opt/asdf/libexec/asdf.sh
+#. /usr/local/opt/asdf/libexec/asdf.sh
 
 # brew install bat (https://github.com/sharkdp/bat)
 export BAT_THEME="nord"
