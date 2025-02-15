@@ -147,9 +147,20 @@ export BAT_THEME="nord"
 # fuck (https://github.com/nvbn/thefuck)
 eval $(thefuck --alias)
 
-# brew install bash-completion
+# brew install bash-completion@2
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+
+# https://stackoverflow.com/a/18839557/2836512
+copy_function() {
+  test -n "$(declare -f "$1")" || return
+  eval "${_/$1/$2}"
+}
+
+# bash-completion@2 deprecated this function, but it is still used
+if [[ "$(type -t _split_longopt)" != "function" ]]; then
+  copy_function _comp__split_longopt _split_longopt
+fi
 
 # brew install fzf (https://github.com/junegunn/fzf)
 # brew install fd (https://github.com/sharkdp/fd)
