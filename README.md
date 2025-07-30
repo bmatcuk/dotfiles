@@ -10,7 +10,6 @@ as my editor, [bash] as my shell, and [tmux] to make my terminal more powerful;
 the latest version of these will be installed by the Brewfile, as well as a few
 other command line tools I find useful as a developer:
 * [bat] - like cat but better
-* [docker] - installs Docker for Mac; no virtualbox required
 * [fd] - like find but way easier
 * [fzf] - fuzzy matching for file names and command completion
 * [jq] - parse json on the command line
@@ -22,9 +21,14 @@ other command line tools I find useful as a developer:
 The Brewfile will also install some other programs that I tend to install on
 all of my machines, such as:
 * [alfred] - like Spotlight but more powerful
+* [discord] - for keeping in touch with friends
 * [flux] - save your eyes from the blue light
 * [keybase] - encryption with friends
+* messenger - for keeping in touch with friends who refuse to change
+* [obsidian] - for note taking
+* [slack] - for work and play
 * [stay] - make windows stay put, even when switching monitors
+* [tailscale] - private vpn
 
 ## Installation
 All of the software you'll need is installed by [homebrew], so the first thing
@@ -55,8 +59,8 @@ sudo tic -xe tmux-256color tmux-256color.terminfo
 To use the version of [bash] installed by [homebrew] instead of OSX's default
 (outdated) version of bash, run:
 ```bash
-echo "/usr/local/bin/bash" | sudo tee -a /etc/shells
-chsh -s /usr/local/bin/bash
+echo "$(brew --prefix bash)/bin/bash" | sudo tee -a /etc/shells
+chsh -s "$(brew --prefix bash)/bin/bash"
 ```
 
 ## dotfiles
@@ -64,6 +68,24 @@ Now that everything is setup, you can use [stow] to create symbolic links to
 the dotfiles. These instructions assume that you've cloned this repo to your
 home directory as suggested above. If you have not, you'll need to set [stow]'s
 "target directory" to your home directory. See [stow]'s documentation.
+
+Note that some of the dotfiles end up in shared directories, which might not
+exist yet. For example, `~/.config` or `~/.local`. If these directories do not
+exist, [stow] will do the simpliest thing, which is symlink them. Later, when
+some other program tries to save something in those directories, they'll end up
+copied into this dotfiles repo because of the symlink. To avoid that, we'll
+create a few directories first:
+```bash
+mkdir -p ~/.config/nvim
+
+mkdir -p ~/.local/share
+mkdir ~/.local/state
+
+mkdir ~/.gnupg
+chmod 0700 ~/.gnupg
+
+mkdir ~/.ssh
+```
 
 dotfiles for each utility are in their own directory. For example, to install
 my bash dotfiles, you'd simply run the following while in this repo's
@@ -101,28 +123,11 @@ After running `stow tmux` and starting tmux, install plugins by typing
 `prefix + I` - that's the tmux prefix (typically Ctrl+B) followed by Shift+i.
 
 ### nvim
-Before running `stow nvim`, you'll want to create a directory for the nvim
-config, otherwise [vim-plug] will end up creating a directory that'll be
-symlinked back into this repo.
-```bash
-mkdir -p ~/.config/nvim
-stow nvim
-```
-
-After running `stow nvim`, you'll need to install python3 and node (maybe via
-asdf, homebrew, or your favorite method). Next, you'll need to install
-[vim-plug] and then run:
+After running `stow nvim`, you'll need to install python3 and node (via asdf).
+Next, you'll need to install [vim-plug] and then run:
 ```bash
 pip3 install pynvim
-nvim +PlugInstall +UpdateRemotePlugins
-```
-
-### gnupg
-Like nvim, you'll want to create the config directory before running stow:
-```bash
-mkdir ~/.gnupg
-chmod 0700 ~/.gnupg
-stow gnupg
+nvim +UpdateRemotePlugins
 ```
 
 ### Fortune and Cowsay
@@ -175,7 +180,7 @@ killall Dock
 [bat]: https://github.com/sharkdp/bat
 [cowsay-files]: https://github.com/paulkaefer/cowsay-files
 [cowsay]: https://github.com/tnalpgge/rank-amateur-cowsay
-[docker]: https://www.docker.com/community-edition
+[discord]: https://discord.com/
 [fd]: https://github.com/sharkdp/fd
 [flux]: https://justgetflux.com/
 [fzf]: https://github.com/junegunn/fzf
@@ -184,9 +189,12 @@ killall Dock
 [keybase]: https://keybase.io/
 [neovim]: https://neovim.io/
 [nord]: https://www.nordtheme.com/
+[obsidian]: https://obsidian.md/
 [ripgrep]: https://github.com/BurntSushi/ripgrep
+[slack]: https://slack.com/
 [stay]: https://cordlessdog.com/stay/
 [stow]: https://www.gnu.org/software/stow/
+[tailscale]: https://tailscale.com/
 [thefuck]: https://github.com/nvbn/thefuck
 [tig]: https://jonas.github.io/tig/
 [tldr]: https://tldr.sh/

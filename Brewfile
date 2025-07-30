@@ -1,5 +1,4 @@
 tap "cjbassi/gotop"
-tap "homebrew/cask-versions"
 
 brew "asdf"
 brew "bash"
@@ -39,11 +38,16 @@ brew "tree"
 
 cask "alacritty"
 cask "alfred"
+cask "discord"
 cask "flux"
 cask "font-hack-nerd-font"
 cask "keybase"
+cask "obsidian"
 cask "stay"
 
 mas "BreakTime", id: 427475982
 mas "Clocker", id: 1056643111
+mas "Messenger", id: 1480068668
+mas "Slack", id: 803453959
+mas "Tailscale", id: 1475387142
 mas "Xcode", id: 497799835

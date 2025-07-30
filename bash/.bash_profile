@@ -116,14 +116,17 @@ shopt -s histappend
 # Add homebrew to path
 export HOMEBREW_BAT=1
 export HOMEBREW_NO_GITHUB_API=1
+if [ -f /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -f /usr/local/bin/brew ]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 HOMEBREW_PATHS=(
-  "/usr/local/bin"
-  "/usr/local/sbin"
-  "/usr/local/opt/grep/libexec/gnubin"
-  "/usr/local/opt/findutils/libexec/gnubin"
-  "/usr/local/opt/gnu-sed/libexec/gnubin"
-  "/usr/local/opt/gnu-tar/libexec/gnubin"
-  "/usr/local/opt/gnu-which/libexec/gnubin"
+  "$(brew --prefix grep)/libexec/gnubin"
+  "$(brew --prefix findutils)/libexec/gnubin"
+  "$(brew --prefix gnu-sed)/libexec/gnubin"
+  "$(brew --prefix gnu-tar)/libexec/gnubin"
+  "$(brew --prefix gnu-which)/libexec/gnubin"
   "$PATH"
 )
 export PATH=$(IFS=":"; echo "${HOMEBREW_PATHS[*]}")

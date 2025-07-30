@@ -3,6 +3,12 @@
 " Install vim-plug first: https://github.com/junegunn/vim-plug
 " Then start nvim with:
 "   nvim +PlugInstall +UpdateRemotePlugins
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.config/nvim/plugged')
 " general plugins
 Plug 'tpope/vim-sensible'
@@ -53,8 +59,8 @@ Plug 'unblevable/quick-scope'
 call plug#end()
 
 " pip3 install pynvim
-let g:python3_host_prog='/usr/local/opt/python/bin/python3'
-let g:python_host_prog='/usr/local/bin/python'
+let g:python3_host_prog=system('asdf which python3')
+let g:python_host_prog=system('asdf which python2')
 
 set tabstop=2
 set expandtab
