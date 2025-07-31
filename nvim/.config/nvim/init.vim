@@ -1,8 +1,8 @@
-" Recommended nvim 0.8.0+ (brew install --HEAD neovim)
-"
-" Install vim-plug first: https://github.com/junegunn/vim-plug
-" Then start nvim with:
-"   nvim +PlugInstall +UpdateRemotePlugins
+" Recommended nvim 0.11.0+
+" First time, start with:
+"   nvim +UpdateRemotePlugins
+
+" Auto-install vim-plug: https://github.com/junegunn/vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -21,7 +21,7 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'mhinz/vim-startify'
 Plug 'Olical/vim-enmasse'
 Plug 'dstein64/vim-win'
-Plug '/usr/local/opt/fzf'
+Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'Shougo/defx.nvim'
 Plug 'kristijanhusak/defx-icons'
