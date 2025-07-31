@@ -349,78 +349,50 @@ nmap <silent> [h <Plug>(GitGutterPrevHunk)
 lua << EOL
 require'mason'.setup()
 require'mason-lspconfig'.setup {
-  automatic_installation = { exclude = { "zls" } }
+  ensure_installed = {
+    'cssls',
+    'eslint',
+    'gopls',
+    'html',
+    'jsonls',
+    'rust_analyzer',
+    'stylelint_lsp',
+    'ts_ls',
+  }
 }
 
 local lspstatus = require('lsp-status')
 lspstatus.config { show_filename = false }
 lspstatus.register_progress()
 
-local lspconfig = require('lspconfig')
-local capabilities = vim.tbl_deep_extend(
-  'keep',
-  require'cmp_nvim_lsp'.default_capabilities(),
-  lspstatus.capabilities,
-  vim.lsp.protocol.make_client_capabilities()
-)
+vim.lsp.config('*', {
+  capabilities = lspstatus.capabilities,
+})
 
--- npm i -g vscode-langservers-extracted
-lspconfig.html.setup {
-  capabilities = capabilities,
-  on_attach = lspstatus.on_attach
-}
-lspconfig.cssls.setup {
-  capabilities = capabilities,
-  on_attach = lspstatus.on_attach,
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('my.lsp', {}),
+  callback = function(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+    lspstatus.on_attach(client)
+  end,
+})
+
+vim.lsp.config('cssls', {
   settings = {
     css = { validate = false },
     less = { validate = false },
-    scss = { validate = false }
-  }
-}
-lspconfig.jsonls.setup {
-  capabilities = capabilities,
-  on_attach = lspstatus.on_attach
-}
-lspconfig.eslint.setup {
-  capabilities = capabilities,
-  on_attach = lspstatus.on_attach
-}
+    scss = { validate = false },
+  },
+})
 
--- npm i -g typescript typescript-language-server
-lspconfig.ts_ls.setup {
-  capabilities = capabilities,
-  on_attach = lspstatus.on_attach
-}
-
--- npm i -g stylelint-lsp
-lspconfig.stylelint_lsp.setup{
-  capabilities = capabilities,
-  on_attach = lspstatus.on_attach,
+vim.lsp.config('stylelint_lsp', {
   settings = {
     stylelintplus = {
       autoFixOnFormat = true
     }
   }
-}
+})
 
-lspconfig.gopls.setup {
-  capabilities = capabilities,
-  on_attach = lspstatus.on_attach
-}
-lspconfig.rust_analyzer.setup {
-  capabilities = capabilities,
-  on_attach = lspstatus.on_attach
-}
-lspconfig.dartls.setup {
-  capabilities = capabilities,
-  on_attach = lspstatus.on_attach
-}
-
-lspconfig.zls.setup {
-  capabilities = capabilities,
-  on_attach = lspstatus.on_attach
-}
 EOL
 
 " lsp related colors
