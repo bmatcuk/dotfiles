@@ -123,28 +123,26 @@ After running `stow tmux` and starting tmux, install plugins by typing
 `prefix + I` - that's the tmux prefix (typically Ctrl+B) followed by Shift+i.
 
 ### nvim
-After running `stow nvim`, you'll need to install python3 and node (via asdf).
-Next, you'll need to install [vim-plug] and then run:
+After running `stow nvim`, you'll need to install python2, python3, and node
+(via asdf). Next, you'll need to run:
 ```bash
 pip3 install pynvim
-nvim +UpdateRemotePlugins
+npm install -g neovim
+nvim +PlugInstall +UpdateRemotePlugins
 ```
 
 ### Fortune and Cowsay
-The files for fortune and [cowsay] must be linked using `/usr/local/share` as
-the [stow] target directory. To do that, run:
-```bash
-stow -t /usr/local/share fortune
-stow -t /usr/local/share cowsay
-```
-
-If you're on OSX and fortune/[cowsay] have been installed via [homebrew], stow
-will complain that it does not "own" the appropriate directories because
-they're already symlinks. Instead, you'll need to use the full path into the
-[homebrew] "Cellar":
+The files for fortune and [cowsay] must be linked to the respective `share`
+directories. If these were installed via [homebrew], the following will work:
 ```bash
 stow -t "$(brew --prefix fortune)/share" fortune
 stow -t "$(brew --prefix cowsay)/share" cowsay
+```
+
+Otherwise, this will probably work:
+```bash
+stow -t /usr/local/share fortune
+stow -t /usr/local/share cowsay
 ```
 
 The [cowsay] files come from Paul Kaefer's excellent [cowsay-files] repo. I
@@ -199,4 +197,3 @@ killall Dock
 [tig]: https://jonas.github.io/tig/
 [tldr]: https://tldr.sh/
 [tmux]: https://tmux.github.io/
-[vim-plug]: https://github.com/junegunn/vim-plug

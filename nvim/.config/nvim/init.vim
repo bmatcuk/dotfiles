@@ -59,8 +59,8 @@ Plug 'unblevable/quick-scope'
 call plug#end()
 
 " pip3 install pynvim
-let g:python3_host_prog=system('asdf which python3')
-let g:python_host_prog=system('asdf which python2')
+let g:python3_host_prog=trim(system('asdf which python3'))
+let g:python_host_prog=trim(system('asdf which python2'))
 
 set tabstop=2
 set expandtab
