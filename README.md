@@ -136,7 +136,7 @@ The files for fortune and [cowsay] must be linked to the respective `share`
 directories. If these were installed via [homebrew], the following will work:
 ```bash
 stow -t "$(brew --prefix fortune)/share" fortune
-stow -t "$(brew --prefix cowsay)/share" cowsay
+stow -t "$(brew --prefix cowsay)/share/cowsay" cowsay
 ```
 
 Otherwise, this will probably work:
