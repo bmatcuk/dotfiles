@@ -30,6 +30,7 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'airblade/vim-gitgutter'
+Plug 'folke/trouble.nvim'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 
@@ -393,6 +394,50 @@ vim.lsp.config('stylelint_lsp', {
   }
 })
 
+require'trouble'.setup {
+  auto_preview = false,
+  focus = true,
+  modes = {
+    symbols = {
+      desc = "document symbols",
+      mode = "lsp_document_symbols",
+      multiline = false,
+      focus = true,
+      win = { position = "right" },
+      filter = {
+        -- remove Package since luals uses it for control flow structures
+        ["not"] = { ft = "lua", kind = "Package" },
+        any = {
+          -- all symbol kinds for help / markdown files
+          ft = { "help", "markdown" },
+          -- default set of symbol kinds
+          kind = {
+            "Class",
+            "Constructor",
+            "Enum",
+            "Field",
+            "Function",
+            "Interface",
+            "Method",
+            "Module",
+            "Namespace",
+            "Package",
+            "Property",
+            "Struct",
+            "Trait",
+          },
+        },
+      },
+    },
+    buffer_diagnostics = {
+      mode = "diagnostics",
+      groups = { "severity", "filename" },
+      filter = { buf = 0 },
+      sort = { "pos" },
+    },
+  },
+}
+
 EOL
 
 " lsp related colors
@@ -414,14 +459,15 @@ function! s:show_documentation()
   endif
 endfunction
 
-nnoremap <silent> <space>D :call v:lua.vim.lsp.buf.type_definition<CR>
-nnoremap <silent> gD :call v:lua.vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gd :call v:lua.vim.lsp.buf.definition()<CR>
+nnoremap <silent> <space>D :Trouble lsp_type_definitions<CR>
+nnoremap <silent> gD :Trouble lsp_declarations<CR>
+nnoremap <silent> gd :Trouble lsp_definitions<CR>
 nnoremap <silent> <C-K> :call v:lua.vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent> gi :call v:lua.vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gr :call v:lua.vim.lsp.buf.references()<CR>
-nnoremap <silent> <leader>d :call v:lua.vim.diagnostic.setqflist()<CR>
+nnoremap <silent> gi :Trouble lsp_implementations<CR>
+nnoremap <silent> gr :Trouble lsp_references<CR>
+nnoremap <silent> <leader>d :Trouble buffer_diagnostics<CR>
+nnoremap <silent> gs :Trouble symbols<CR>
 
 augroup mylsp
   autocmd!
