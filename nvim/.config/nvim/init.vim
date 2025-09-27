@@ -57,6 +57,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'honza/vim-snippets'
 Plug 'unblevable/quick-scope'
+Plug 'mbbill/undotree'
 call plug#end()
 
 " pip3 install pynvim
@@ -615,6 +616,10 @@ autocmd BufReadPost * silent! normal! g`"zv
 
 " highlight yanked text
 au TextYankPost * silent! lua vim.highlight.on_yank()
+
+" undotree
+let g:undotree_WindowLayout = 2
+nnoremap <silent> <space>u :UndotreeShow<CR>:UndotreeFocus<CR>
 
 " rainbow settings
 let g:rainbow_active = 1
