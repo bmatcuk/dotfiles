@@ -151,8 +151,7 @@ export BAT_THEME="nord"
 eval $(thefuck --alias)
 
 # brew install bash-completion@2
-export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 
 # https://stackoverflow.com/a/18839557/2836512
 copy_function() {
