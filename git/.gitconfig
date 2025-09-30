@@ -45,7 +45,7 @@
   tool = opendiff
 
 [interactive]
-  diffFilter = /usr/local/opt/git/share/git-core/contrib/diff-highlight/diff-highlight
+  diffFilter = diff-so-fancy --patch
 
 [submodule]
   recurse = true
