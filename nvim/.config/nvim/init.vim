@@ -397,11 +397,13 @@ vim.lsp.config('stylelint_lsp', {
 
 require'trouble'.setup {
   auto_preview = false,
+  auto_refresh = false,
   focus = true,
   modes = {
     symbols = {
       desc = "document symbols",
       mode = "lsp_document_symbols",
+      auto_refresh = true,
       multiline = false,
       focus = true,
       win = { position = "right" },
@@ -432,6 +434,7 @@ require'trouble'.setup {
     },
     buffer_diagnostics = {
       mode = "diagnostics",
+      auto_refresh = true,
       groups = { "severity", "filename" },
       filter = { buf = 0 },
       sort = { "pos" },
