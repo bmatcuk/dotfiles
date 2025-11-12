@@ -20,26 +20,12 @@ return {
       local find_files_no_ignore = function()
         local action_state = require("telescope.actions.state")
         local line = action_state.get_current_line()
-        LazyVim.pick("find_files", { no_ignore = true, default_text = line })()
+        require("telescope.builtin").find_files({ no_ignore = true, default_text = line })
       end
       local find_files_with_hidden = function()
         local action_state = require("telescope.actions.state")
         local line = action_state.get_current_line()
-        LazyVim.pick("find_files", { hidden = true, default_text = line })()
-      end
-
-      local function find_command()
-        if 1 == vim.fn.executable("rg") then
-          return { "rg", "--files", "--color", "never", "-g", "!.git" }
-        elseif 1 == vim.fn.executable("fd") then
-          return { "fd", "--type", "f", "--color", "never", "-E", ".git" }
-        elseif 1 == vim.fn.executable("fdfind") then
-          return { "fdfind", "--type", "f", "--color", "never", "-E", ".git" }
-        elseif 1 == vim.fn.executable("find") and vim.fn.has("win32") == 0 then
-          return { "find", ".", "-type", "f" }
-        elseif 1 == vim.fn.executable("where") then
-          return { "where", "/r", ".", "*" }
-        end
+        require("telescope.builtin").find_files({ hidden = true, default_text = line })
       end
 
       return {
@@ -62,14 +48,66 @@ return {
             },
           },
         },
-        pickers = {
-          find_files = {
-            find_command = find_command,
-            hidden = true,
-          },
-        },
       }
     end,
+    keys = {
+      { "<C-p>",
+        function()
+          local opts = {}
+
+          vim.fn.system("git rev-parse --is-inside-work-tree")
+          local inside_work_tree = vim.v.shell_error == 0
+
+          if is_inside_work_tree[cwd] then
+            require("telescope.builtin").git_files(opts)
+          else
+            require("telescope.builtin").find_files(opts)
+          end
+        end,
+        desc = "Switch files.",
+        silent = true,
+      },
+      { "<leader>be", "<CMD>Telescope buffers sort_mru=true sort_lastused=true<CR>",
+        desc = "Switch buffer.",
+        silent = true,
+      },
+      { "\\", "<CMD>Telescope live_grep<CR>",
+        desc = "Grep.",
+        silent = true,
+      },
+      { "<leader>\\", "<CMD>Telescope grep_string<CR>",
+        desc = "Grep word under cursor.",
+        silent = true,
+      },
+      { "<leader>:", "<CMD>Telescope command_history<CR>",
+        desc = "Command history.",
+        silent = true,
+      },
+      { "<space>D", "<CMD>Telecope lsp_type_definitions<CR>",
+        desc = "Goto type definition or show options.",
+        silent = true,
+      },
+      { "gd", "<CMD>Telescope lsp_definitions<CR>",
+        desc = "Goto definition or show options.",
+        silent = true,
+      },
+      { "gi", "<CMD>Telescope lsp_implementations<CR>",
+        desc = "Goto implementation or show options.",
+        silent = true,
+      }
+      { "gr", "<CMD>Telescope lsp_references<CR>",
+        desc = "Goto reference or show options.",
+        silent = true,
+      }
+      { "<leader>d", "<CMD>Telescope buffer_diagnostics bufnr=0<CR>",
+        desc = "Diagnostics for current buffer.",
+        silent = true,
+      },
+      { "gs", "<CMD>Telescope lsp_document_symbols<CR>",
+        desc = "Symbols in the current document.",
+        silent = true,
+      },
+    },
   },
 
   {
