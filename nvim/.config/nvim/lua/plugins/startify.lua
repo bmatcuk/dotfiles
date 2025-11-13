@@ -3,7 +3,7 @@ return {
     "mhinz/vim-startify",
     lazy = false,
     priority = 900,
-    config = function()
+    init = function()
       vim.cmd [[
         function! s:startifyGitModified()
           let files = systemlist('git ls-files -m 2>/dev/null')

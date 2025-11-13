@@ -115,4 +115,22 @@ return {
     lazy = true,
     build = "make",
   },
+
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+    lazy = true,
+    config = function()
+      require("telescope").load_extension "file_browser"
+    end,
+    keys = {
+      { "<leader>e", "<CMD>Telescope file_browser path=%:p:h select_buffer=true<CR>",
+        desc = "Open file browser.",
+        silent = true,
+      },
+    },
+  },
 }

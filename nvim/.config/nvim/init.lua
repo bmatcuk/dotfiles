@@ -1,7 +1,6 @@
 -- global stuff
 vim.g.python3_host_prog = vim.fn.trim(vim.fn.system({ "asdf", "which", "python3" }))
 vim.g.python_host_prog = vim.fn.trim(vim.fn.system({ "asdf", "which", "python2" }))
-
 vim.g.mapleader = ","
 
 
