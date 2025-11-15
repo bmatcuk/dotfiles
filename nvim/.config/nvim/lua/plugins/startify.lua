@@ -29,4 +29,5 @@ return {
         let g:startify_custom_footer = 'startify#pad(split(system("fortune -s computers linuxcookie softwareengineering | cowsay -f kitten"), "\n"))'
       ]]
     end,
+  },
 }

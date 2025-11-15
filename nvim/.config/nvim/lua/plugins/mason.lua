@@ -30,5 +30,33 @@ return {
         'ts_ls',
       },
     },
+    init = function()
+      vim.lsp.config('*', {
+        capabilities = {
+          workspace = {
+            fileOperations = {
+              didRename = true,
+              willRename = true,
+            },
+          },
+        },
+      })
+
+      vim.lsp.config('cssls', {
+        settings = {
+          css = { validate = false },
+          less = { validate = false },
+          scss = { validate = false },
+        },
+      })
+
+      vim.lsp.config('stylelint_lsp', {
+        settings = {
+          stylelintplus = {
+            autoFixOnFormat = true
+          }
+        }
+      })
+    end,
   },
 }

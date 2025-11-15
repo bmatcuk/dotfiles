@@ -58,7 +58,7 @@ return {
           vim.fn.system("git rev-parse --is-inside-work-tree")
           local inside_work_tree = vim.v.shell_error == 0
 
-          if is_inside_work_tree[cwd] then
+          if inside_work_tree then
             require("telescope.builtin").git_files(opts)
           else
             require("telescope.builtin").find_files(opts)
@@ -94,11 +94,11 @@ return {
       { "gi", "<CMD>Telescope lsp_implementations<CR>",
         desc = "Goto implementation or show options.",
         silent = true,
-      }
+      },
       { "gr", "<CMD>Telescope lsp_references<CR>",
         desc = "Goto reference or show options.",
         silent = true,
-      }
+      },
       { "<leader>d", "<CMD>Telescope buffer_diagnostics bufnr=0<CR>",
         desc = "Diagnostics for current buffer.",
         silent = true,

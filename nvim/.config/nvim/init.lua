@@ -12,7 +12,7 @@ vim.keymap.set("n", "<leader>/", ":nohlsearch<CR>", {
 })
 
 -- neovim maps Y to y$, but I can't undo years of muscle memory
-vim.keymap.del({ "n", "v", "o" }, "Y")
+-- vim.keymap.del({ "n", "v", "o" }, "Y")
 
 -- When using C-u or C-w to delete the line/last word in insert mode, start a
 -- new change as far as undo is concerned (so you can press esc u to undo)

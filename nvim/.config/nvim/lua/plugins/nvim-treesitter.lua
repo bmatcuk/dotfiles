@@ -17,7 +17,6 @@ return {
         TS.update(nil, { summary = true })
       end)
     end,
-    event = { "LazyFile", "VeryLazy" },
     cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
     opts_extended = { "ensure_installed" },
     opts = {
