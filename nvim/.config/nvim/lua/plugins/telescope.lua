@@ -63,15 +63,15 @@ return {
     keys = {
       { "<C-p>",
         function()
-          local opts = {}
-
           vim.fn.system("git rev-parse --is-inside-work-tree")
           local inside_work_tree = vim.v.shell_error == 0
 
           if inside_work_tree then
-            require("telescope.builtin").git_files(opts)
+            require("telescope.builtin").git_files({
+              show_untracked = true,
+            })
           else
-            require("telescope.builtin").find_files(opts)
+            require("telescope.builtin").find_files({})
           end
         end,
         desc = "Switch files.",
@@ -139,13 +139,59 @@ return {
       "nvim-lua/plenary.nvim",
     },
     lazy = true,
-    config = function()
-      require("telescope").load_extension "file_browser"
+    opts = function()
+      local fb_actions = require("telescope._extensions.file_browser.actions")
+      return {
+        extensions = {
+          file_browser = {
+            mappings = {
+              ["n"] = {
+                ["N"] = fb_actions.create,
+              },
+            },
+          },
+        },
+      }
+    end,
+    config = function(_, opts)
+      local TS = require("telescope")
+      TS.setup(opts)
+      TS.load_extension "file_browser"
     end,
     keys = {
       { "<leader>e", "<CMD>Telescope file_browser path=%:p:h select_buffer=true<CR>",
         desc = "Open file browser.",
         silent = true,
+      },
+    },
+  },
+
+  {
+    "debugloop/telescope-undo.nvim",
+    lazy = true,
+    opts = function()
+      local undo_actions = require("telescope-undo.actions")
+      return {
+        extensions = {
+          undo = {
+            mappings = {
+              i = {
+                ["<CR>"] = undo_actions.restore,
+              },
+            },
+          },
+        },
+      }
+    end,
+    config = function(_, opts)
+      local TS = require("telescope")
+      TS.setup(opts)
+      TS.load_extension "undo"
+    end,
+    keys = {
+      { "<space>u", "<CMD>Telescope undo<CR>",
+        desc = "Open undotree.",
+        silent = false,
       },
     },
   },

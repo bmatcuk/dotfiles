@@ -1,6 +1,7 @@
 return {
   {
     "mbbill/undotree",
+    optional = true,
     cmd = {
       "UndotreeShow",
       "UndotreeFocus",

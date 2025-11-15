@@ -33,6 +33,7 @@ vim.keymap.set("n", "g*", ":let @/=expand('<cword>') <BAR> set hls <CR>", {
   silent = true,
 })
 
+vim.keymap.del("n", "Y")
 
 
 

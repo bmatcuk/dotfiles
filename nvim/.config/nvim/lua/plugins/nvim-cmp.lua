@@ -1,6 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
+    optional = true,
     version = false,
     dependencies = {
       "hrsh7th/cmp-buffer",
@@ -80,26 +81,31 @@ return {
 
   {
     "hrsh7th/cmp-buffer",
+    optional = true,
     version = false,
   },
 
   {
     "hrsh7th/cmp-cmdline",
+    optional = true,
     version = false,
   },
 
   {
     "hrsh7th/cmp-nvim-lsp",
+    optional = true,
     version = false,
   },
 
   {
     "hrsh7th/cmp-path",
+    optional = true,
     version = false,
   },
 
   {
     "hrsh7th/cmp-vsnip",
+    optional = true,
     dependencies = {
       "hrsh7th/vim-vsnip",
     },
