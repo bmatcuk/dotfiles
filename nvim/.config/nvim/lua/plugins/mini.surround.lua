@@ -1,0 +1,38 @@
+return {
+  {
+    "nvim-mini/mini.surround",
+    version = false,
+    opts = {
+      mappings = {
+        add = "ys",
+        delete = "ds",
+        replace = "cs",
+        find = "sf",
+        find_left = "sF",
+        highlight = "sh",
+        suffix_last = "l",
+        suffix_next = "n",
+      },
+    },
+    keys = {
+      { "ys", mode = { "n", "x" },
+        desc = "Add surround.",
+      },
+      { "ds",
+        desc = "Delete surround.",
+      },
+      { "cs",
+        desc = "Replace surround.",
+      },
+      { "sf",
+        desc = "Find surround to the right.",
+      },
+      { "sF",
+        desc = "Find surround to the left.",
+      },
+      { "sh",
+        desc = "Highlight surround.",
+      },
+    },
+  },
+}
