@@ -54,6 +54,10 @@ return {
         desc = "Goto declaration or shop options.",
         silent = true,
       },
+      { "<leader>d", "<CMD>Trouble buffer_diagnostics<CR>",
+        desc = "Show diagnostics for current buffer.",
+        silent = true,
+      },
     },
   },
 }

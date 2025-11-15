@@ -13,6 +13,7 @@ return {
     cmd = "Telescope",
     opts = function()
       local actions = require("telescope.actions")
+      require("telescope").load_extension("fzf")
 
       local open_with_trouble = function(...)
         return require("trouble.sources.telescope").open(...)
@@ -48,6 +49,15 @@ return {
             },
           },
         },
+        pickers = {
+          live_grep = {
+            mappings = {
+              i = {
+                ["<c-f>"] = actions.to_fuzzy_refine,
+              },
+            },
+          },
+        },
       }
     end,
     keys = {
@@ -71,7 +81,21 @@ return {
         desc = "Switch buffer.",
         silent = true,
       },
-      { "\\", "<CMD>Telescope live_grep<CR>",
+      -- { "\\", "<CMD>Telescope live_grep<CR>",
+      --   desc = "Grep.",
+      --   silent = true,
+      -- },
+      {
+        "\\",
+        function()
+          local builtin = require("telescope.builtin")
+          builtin.grep_string({
+            path_display = { "smart" },
+            only_sort_text = true,
+            word_match = "-w",
+            search = "",
+          })
+        end,
         desc = "Grep.",
         silent = true,
       },
@@ -81,10 +105,6 @@ return {
       },
       { "<leader>:", "<CMD>Telescope command_history<CR>",
         desc = "Command history.",
-        silent = true,
-      },
-      { "<space>D", "<CMD>Telecope lsp_type_definitions<CR>",
-        desc = "Goto type definition or show options.",
         silent = true,
       },
       { "gd", "<CMD>Telescope lsp_definitions<CR>",
@@ -97,10 +117,6 @@ return {
       },
       { "gr", "<CMD>Telescope lsp_references<CR>",
         desc = "Goto reference or show options.",
-        silent = true,
-      },
-      { "<leader>d", "<CMD>Telescope buffer_diagnostics bufnr=0<CR>",
-        desc = "Diagnostics for current buffer.",
         silent = true,
       },
       { "gs", "<CMD>Telescope lsp_document_symbols<CR>",

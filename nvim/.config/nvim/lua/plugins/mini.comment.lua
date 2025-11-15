@@ -2,6 +2,7 @@ return {
   {
     "nvim-mini/mini.comment",
     version = false,
+    opts = {},
     keys = {
       { "gc", mode = { "n", "x" },
         desc = "Toggle comment.",

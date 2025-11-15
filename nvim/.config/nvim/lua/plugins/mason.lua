@@ -1,15 +1,9 @@
 return {
   {
     "mason-org/mason.nvim",
+    lazy = false,
     build = ":MasonUpdate",
-    cmd = {
-      "Mason",
-      "MasonUpdate",
-      "MasonInstall",
-      "MasonUninstall",
-      "MasonUninstallAll",
-      "MasonLog",
-    },
+    opts = {},
   },
 
   {
@@ -18,20 +12,21 @@ return {
       "mason-org/mason.nvim",
       "neovim/nvim-lspconfig",
     },
+    lazy = false,
     opts = {
       ensure_installed = {
-        'cssls',
-        'eslint',
-        'gopls',
-        'html',
-        'jsonls',
-        'rust_analyzer',
-        'stylelint_lsp',
-        'ts_ls',
+        "cssls", -- "css-lsp",
+        "eslint", --"eslint-lsp",
+        "gopls",
+        "html", -- "html-lsp",
+        "jsonls", -- "json-lsp",
+        "rust_analyzer", -- "rust-analyzer",
+        "stylelint_lsp", -- "stylelint",
+        "ts_ls", -- "typescript-language-server",
       },
     },
     init = function()
-      vim.lsp.config('*', {
+      vim.lsp.config("*", {
         capabilities = {
           workspace = {
             fileOperations = {
@@ -42,7 +37,7 @@ return {
         },
       })
 
-      vim.lsp.config('cssls', {
+      vim.lsp.config("cssls", {
         settings = {
           css = { validate = false },
           less = { validate = false },
@@ -50,7 +45,7 @@ return {
         },
       })
 
-      vim.lsp.config('stylelint_lsp', {
+      vim.lsp.config("stylelint_lsp", {
         settings = {
           stylelintplus = {
             autoFixOnFormat = true

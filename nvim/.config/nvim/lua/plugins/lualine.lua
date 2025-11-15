@@ -39,10 +39,10 @@ return {
         lualine_a = {"mode"},
         lualine_b = {"branch", "diff"},
         lualine_c = {"filename"},
-        lualine_x = {"encoding", "fileformat", "progress", "location"},
-        lualine_y = {"filetype"},
+        lualine_x = {"encoding", "fileformat"},
+        lualine_y = {"progress", "location"},
         lualine_z = {
-          "lsp_status",
+          -- "lsp_status",
           {
             "diagnostics",
             sources = { "nvim_lsp", "nvim_diagnostic" },
@@ -63,15 +63,31 @@ return {
             path = 1,
           },
         },
-        lualine_x = {"encoding", "fileformat", "progress", "location"},
-        lualine_y = {"filetype"},
-        lualine_z = {}
+        lualine_x = {"encoding", "fileformat"},
+        lualine_y = {"progress", "location"},
+        lualine_z = {
+          -- "lsp_status",
+          {
+            "diagnostics",
+            sources = { "nvim_lsp", "nvim_diagnostic" },
+            sections = { "warn", "error" },
+            symbols = {
+              error = '✗',
+              warn = '◆',
+            },
+          },
+        }
       },
       tabline = {
         lualine_a = {
           {
             "buffers",
             show_filename_only = false,
+            icons_enabled = false,
+            buffers_color = {
+              active = 'lualine_a_normal',
+              inactive = 'lualine_c_inactive',
+            },
           },
         },
       },

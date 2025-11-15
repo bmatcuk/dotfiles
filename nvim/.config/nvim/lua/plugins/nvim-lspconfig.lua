@@ -1,6 +1,8 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
+    priority = 800,
     init = function()
       vim.keymap.set("n", "<C-K>", vim.lsp.buf.signature_help, {
         desc = "Display signature help.",
