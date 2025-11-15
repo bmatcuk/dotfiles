@@ -52,6 +52,16 @@ return {
         desc = "Show documentation.",
         silent = true,
       })
+
+      -- highlight symbol under cursor
+      local augroup = vim.api.nvim_create_augroup("mylspgroup", { clear = true })
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        callback = vim.lsp.buf.document_highlight,
+        group = augroup,
+      })
+      vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+        callback = vim.lsp.buf.clear_references,
+      })
     end,
   },
 }

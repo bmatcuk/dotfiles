@@ -12,7 +12,7 @@ vim.keymap.set("n", "<leader>/", ":nohlsearch<CR>", {
 })
 
 -- neovim maps Y to y$, but I can't undo years of muscle memory
--- vim.keymap.del({ "n", "v", "o" }, "Y")
+vim.keymap.del("n", "Y")
 
 -- When using C-u or C-w to delete the line/last word in insert mode, start a
 -- new change as far as undo is concerned (so you can press esc u to undo)
@@ -33,8 +33,6 @@ vim.keymap.set("n", "g*", ":let @/=expand('<cword>') <BAR> set hls <CR>", {
   silent = true,
 })
 
-vim.keymap.del("n", "Y")
-
 
 
 local myautogroup = vim.api.nvim_create_augroup("myautogroup", { clear = true })
@@ -51,12 +49,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   group = myautogroup,
 })
 
--- highlight yanked text for a moment
-vim.api.nvim_create_autocmd({ "TextYankPost" }, {
-  command = "silent! lua vim.highlight.on_yank()",
-  group = myautogroup,
-})
-
 -- no backups for crontabs
 vim.api.nvim_create_autocmd({ "filetype" }, {
   pattern = "crontab",
@@ -70,12 +62,6 @@ vim.api.nvim_create_autocmd({ "filetype" }, {
   command = "setlocal noexpandtab",
   group = myautogroup,
 })
-
--- sync syntax highlighting when entering a buffer
--- vim.api.nvim_create_autocmd({ "BufEnter" }, {
---   command = ":syntax sync fromstart",
---   group = myautogroup,
--- })
 
 
 

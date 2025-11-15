@@ -168,6 +168,9 @@ return {
 
   {
     "debugloop/telescope-undo.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
     lazy = true,
     opts = function()
       local undo_actions = require("telescope-undo.actions")
