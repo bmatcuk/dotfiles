@@ -8,7 +8,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
-      "nvim-tree/nvim-web-devicons",
+      "nvim-mini/mini.icons",
     },
     cmd = "Telescope",
     opts = function()
