@@ -69,6 +69,7 @@ return {
           if inside_work_tree then
             require("telescope.builtin").git_files({
               show_untracked = true,
+              use_git_root = false,
             })
           else
             require("telescope.builtin").find_files({})
