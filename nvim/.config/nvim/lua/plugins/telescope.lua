@@ -91,7 +91,10 @@ return {
         function()
           local builtin = require("telescope.builtin")
           builtin.grep_string({
-            path_display = { "smart" },
+            prompt_title = "Find",
+            layout_strategy = "vertical",
+            dynamic_preview_title = true,
+            path_display = { "tail" },
             only_sort_text = true,
             word_match = "-w",
             search = "",
@@ -145,6 +148,8 @@ return {
       return {
         extensions = {
           file_browser = {
+            initial_mode = "normal",
+            sorting_strategy = "ascending",
             mappings = {
               ["n"] = {
                 ["N"] = fb_actions.create,
