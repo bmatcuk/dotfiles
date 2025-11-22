@@ -60,6 +60,10 @@ return {
         },
       }
     end,
+    config = function(_, opts)
+      require("telescope").setup(opts)
+      vim.api.nvim_set_hl(0, "TelescopeMatching", { ctermfg = 4, fg = "#81a1c1", bold = true })
+    end,
     keys = {
       { "<C-p>",
         function()
@@ -90,11 +94,17 @@ return {
         "\\",
         function()
           local builtin = require("telescope.builtin")
+          local utils = require("telescope.utils")
           builtin.grep_string({
             prompt_title = "Find",
             layout_strategy = "vertical",
             dynamic_preview_title = true,
-            path_display = { "tail" },
+            path_display = function(_, path)
+              local p = utils.path_tail(path)
+              return p, {
+                { {0, #p}, "Comment" },
+              }
+            end,
             only_sort_text = true,
             word_match = "-w",
             search = "",

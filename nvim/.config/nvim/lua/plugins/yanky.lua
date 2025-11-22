@@ -1,6 +1,7 @@
 return {
   {
     "gbprod/yanky.nvim",
+    lazy = false,
     dependencies = {
       "nvim-telescope/telescope.nvim",
     },
@@ -12,7 +13,8 @@ return {
         timer = 250,
       },
     },
-    init = function(_, opts)
+    config = function(_, opts)
+      require("yanky").setup(opts)
       require("telescope").load_extension "yank_history"
       vim.keymap.set("n", "<leader>p", "<CMD>Telescope yank_history<CR>", {
         desc = "Open yank history.",
