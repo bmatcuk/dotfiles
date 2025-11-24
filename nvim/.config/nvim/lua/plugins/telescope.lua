@@ -86,37 +86,6 @@ return {
         desc = "Switch buffer.",
         silent = true,
       },
-      -- { "\\", "<CMD>Telescope live_grep<CR>",
-      --   desc = "Grep.",
-      --   silent = true,
-      -- },
-      {
-        "\\",
-        function()
-          local builtin = require("telescope.builtin")
-          local utils = require("telescope.utils")
-          builtin.grep_string({
-            prompt_title = "Find",
-            layout_strategy = "vertical",
-            dynamic_preview_title = true,
-            path_display = function(_, path)
-              local p = utils.path_tail(path)
-              return p, {
-                { {0, #p}, "Comment" },
-              }
-            end,
-            only_sort_text = true,
-            word_match = "-w",
-            search = "",
-          })
-        end,
-        desc = "Grep.",
-        silent = true,
-      },
-      { "<leader>\\", "<CMD>Telescope grep_string<CR>",
-        desc = "Grep word under cursor.",
-        silent = true,
-      },
       { "<leader>:", "<CMD>Telescope command_history<CR>",
         desc = "Command history.",
         silent = true,
@@ -211,6 +180,50 @@ return {
       { "<space>u", "<CMD>Telescope undo<CR>",
         desc = "Open undotree.",
         silent = false,
+      },
+    },
+  },
+
+  {
+    "bmatcuk/telescope-my-grep-string",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+    lazy = true,
+    opts = function()
+      local utils = require "telescope.utils"
+
+      return {
+        extensions = {
+          my_grep_string = {
+            prompt_title = "Find",
+            layout_strategy = "vertical",
+            dynamic_preview_title = true,
+            path_display = function(_, path)
+              local p = utils.path_tail(path)
+              return p, {
+                { {0, #p}, "Comment" },
+              }
+            end,
+            only_sort_text = true,
+            word_match = "-w",
+          },
+        },
+      }
+    end,
+    config = function(_, opts)
+      local TS = require("telescope")
+      TS.setup(opts)
+      TS.load_extension "my_grep_string"
+    end,
+    keys = {
+      { "\\", '<CMD>Telescope my_grep_string search=""<CR>',
+        desc = "Grep.",
+        silent = true,
+      },
+      { "<leader>\\", "<CMD>Telescope my_grep_string<CR>",
+        desc = "Grep word under cursor.",
+        silent = true,
       },
     },
   },
