@@ -55,12 +55,23 @@ return {
 
       -- highlight symbol under cursor
       local augroup = vim.api.nvim_create_augroup("mylspgroup", { clear = true })
-      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-        callback = vim.lsp.buf.document_highlight,
+      vim.api.nvim_create_autocmd('LspAttach', {
         group = augroup,
-      })
-      vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-        callback = vim.lsp.buf.clear_references,
+        callback = function(args)
+          local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+          if client:supports_method('textDocument/documentHighlight') then
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+              callback = vim.lsp.buf.document_highlight,
+              buffer = args.buf,
+              group = augroup,
+            })
+            vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+              callback = vim.lsp.buf.clear_references,
+              buffer = args.buf,
+              group = augroup,
+            })
+          end
+        end,
       })
     end,
   },
