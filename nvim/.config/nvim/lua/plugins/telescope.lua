@@ -102,6 +102,11 @@ return {
         desc = "Goto reference or show options.",
         silent = true,
       },
+      {
+        "gt", "<CMD>Telescope lsp_type_definitions<CR>",
+        desc = "Goto type definition or show options.",
+        silent = true,
+      },
       { "gs", "<CMD>Telescope lsp_document_symbols<CR>",
         desc = "Symbols in the current document.",
         silent = true,
