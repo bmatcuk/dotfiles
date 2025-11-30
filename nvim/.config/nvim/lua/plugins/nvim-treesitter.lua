@@ -24,62 +24,55 @@ return {
         end
       end)
     end,
-    opts = {
-      indent = { enable = true },
-      highlight = { enable = true },
-      folds = { enable = true },
-      ensure_installed = {
-        "bash",
-        "c",
-        "cmake",
-        "cpp",
-        "css",
-        "csv",
-        "dart",
-        "diff",
-        "dockerfile",
-        "git_config",
-        "git_rebase",
-        "gitattributes",
-        "gitcommit",
-        "gitignore",
-        "go",
-        "gomod",
-        "gosum",
-        "gotmpl",
-        "graphql",
-        "html",
-        "ini",
-        "javascript",
-        "jq",
-        "jsdoc",
-        "json",
-        "json5",
-        "jsonc",
-        "lua",
-        "luadoc",
-        "luap",
-        "make",
-        "markdown",
-        "markdown_inline",
-        "printf",
-        "prisma",
-        "python",
-        "query",
-        "regex",
-        "rust",
-        "sql",
-        "ssh_config",
-        "tmux",
-        "toml",
-        "tsx",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "xml",
-        "yaml",
-      },
-    },
+    opts = {},
+    config = function(_, opts)
+      local TS = require"nvim-treesitter"
+      TS.setup(opts)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("mytreesittergroup", { clear = true }),
+        callback = function(ev)
+          -- ideas from:
+          -- https://github.com/LazyVim/LazyVim/blob/c64a61734fc9d45470a72603395c02137802bc6f/lua/lazyvim/plugins/treesitter.lua#L103
+          -- https://github.com/xaaha/dev-env/blob/0623ecf7d254e94acb8cf232d7dcd84740d72043/nvim/.config/nvim/lua/xaaha/plugins/lsp-nvim-treesitter.lua#L67
+          local bufnr = ev.buf
+          local lang = vim.treesitter.language.get_lang(ev.match)
+          if not lang then
+            return
+          end
+
+          local installed = pcall(vim.treesitter.get_parser, bufnr, lang)
+          if not installed then
+            if not TS.install({ lang }) then
+              return
+            end
+          end
+
+          local highlights = vim.treesitter.query.get(lang, "highlights")
+          if highlights then
+            vim.treesitter.start(bufnr, lang)
+          end
+
+          local indents = vim.treesitter.query.get(lang, "indents")
+          if indents then
+            local current = vim.api.nvim_get_option_value("indentexpr", { scope = "local" })
+            if current == "" then
+              vim.api.nvim_set_option_value("indentexpr", "v:lua.require'nvim-treesitter'.indentexpr()", { scope = "local" })
+            end
+          end
+
+          local folds = vim.treesitter.query.get(lang, "folds")
+          if folds then
+            local method = vim.api.nvim_get_option_value("foldmethod", { scope = "local" })
+            local current = vim.api.nvim_get_option_value("foldexpr", { scope = "local" })
+            if method ~= "expr" or current == "" then
+              vim.api.nvim_set_option_value("foldmethod", "expr", { scope = "local" })
+              vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.treesitter.foldexpr()", { scope = "local" })
+            end
+          end
+        end,
+      })
+    end,
   },
 
   -- {

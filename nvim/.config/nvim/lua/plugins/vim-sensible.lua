@@ -28,6 +28,7 @@ return {
       vim.o.showtabline = 2
       vim.o.completeopt = "menu,menuone,noselect"
       vim.o.background = "dark"
+      vim.o.foldlevelstart = 99
     end,
   },
 }
