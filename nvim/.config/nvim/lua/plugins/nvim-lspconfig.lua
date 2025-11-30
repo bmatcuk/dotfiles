@@ -4,6 +4,10 @@ return {
     lazy = false,
     priority = 800,
     init = function()
+      -- Mason doesn't handle gleam:
+      -- https://github.com/mason-org/mason-registry/pull/3872
+      vim.lsp.enable('gleam')
+
       vim.keymap.set("n", "<C-K>", vim.lsp.buf.signature_help, {
         desc = "Display signature help.",
         silent = true,
@@ -36,20 +40,6 @@ return {
 
       vim.keymap.set("n", "<space>d", vim.diagnostic.open_float, {
         desc = "Open diagnostic.",
-        silent = true,
-      })
-
-      vim.keymap.set("n", "K",
-        function()
-          vim.cmd [[
-            if (index(['vim','help'], &filetype) >= 0)
-              execute 'h '.expand('<cword>')
-            else
-              call v:lua.vim.lsp.buf.hover()
-            endif
-          ]]
-        end, {
-        desc = "Show documentation.",
         silent = true,
       })
 
