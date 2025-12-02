@@ -217,9 +217,8 @@ return {
             layout_strategy = "vertical",
             dynamic_preview_title = true,
             path_display = function(_, path)
-              local p = utils.path_tail(path)
-              return p, {
-                { {0, #p}, "Comment" },
+              return path, {
+                { {0, #path}, "Comment" },
               }
             end,
             only_sort_text = true,
