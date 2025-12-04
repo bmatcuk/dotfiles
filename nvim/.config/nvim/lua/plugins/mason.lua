@@ -22,7 +22,7 @@ return {
         "jsonls", -- "json-lsp",
         "rust_analyzer", -- "rust-analyzer",
         "stylelint_lsp", -- "stylelint",
-        "ts_ls", -- "typescript-language-server",
+        "tsgo",
       },
     },
     init = function()
