@@ -149,6 +149,7 @@ return {
             mappings = {
               ["n"] = {
                 ["N"] = fb_actions.create,
+                ["<BS>"] = fb_actions.goto_parent_dir,
               },
             },
           },
