@@ -41,6 +41,11 @@ return {
             return
           end
 
+          local parsers = require("nvim-treesitter.parsers")
+          if not parsers[lang] then
+            return
+          end
+
           local installed = pcall(vim.treesitter.get_parser, bufnr, lang)
           if not installed then
             if not TS.install({ lang }) then
