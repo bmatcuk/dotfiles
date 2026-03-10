@@ -103,7 +103,13 @@ export GREP_COLORS="fn=34:mt=01;34:ln=01;30:se=30"
 export LESS="-FRXx2"
 
 # dircolors - brew install coreutils
-[[ -r ~/.dir_colors ]] && eval $(gdircolors ~/.dir_colors)
+if [[ -r ~/.dir_colors ]]; then
+  if command -v gdircolors >/dev/null; then
+    eval $(gdircolors ~/.dir_colors)
+  elif command -v dircolors >/dev/null; then
+    eval $(dircolors ~/.dir_colors)
+  fi
+fi
 
 # history
 export HISTCONTROL=ignoreboth
@@ -111,8 +117,11 @@ export HISTIGNORE="pwd:ls:ls -al:cd .."
 shopt -s histappend
 
 # lesspipe
-command -v lesspipe >/dev/null && eval "$(lesspipe)"
-command -v lesspipe.sh >/dev/null && eval "$(lesspipe.sh)"
+if command -v lesspipe.sh >/dev/null; then
+  eval "$(lesspipe.sh)"
+elif command -v lesspipe >/dev/null; then
+  eval "$(lesspipe)"
+fi
 
 # Add homebrew to path
 if command -v brew >/dev/null; then
@@ -131,17 +140,19 @@ if command -v brew >/dev/null; then
 
   # brew install bash-completion@2
   [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+else
+  [[ -r /etc/profile.d/bash_completion.sh ]] && . /etc/profile.d/bash_completion.sh
+fi
 
-  # https://stackoverflow.com/a/18839557/2836512
-  copy_function() {
-    test -n "$(declare -f "$1")" || return
-    eval "${_/$1/$2}"
-  }
+# https://stackoverflow.com/a/18839557/2836512
+copy_function() {
+  test -n "$(declare -f "$1")" || return
+  eval "${_/$1/$2}"
+}
 
-  # bash-completion@2 deprecated this function, but it is still used
-  if [[ "$(type -t _split_longopt)" != "function" ]]; then
-    copy_function _comp__split_longopt _split_longopt
-  fi
+# bash-completion@2 deprecated this function, but it is still used
+if [[ "$(type -t _split_longopt)" != "function" ]]; then
+  copy_function _comp__split_longopt _split_longopt
 fi
 
 # Add node bin to path
