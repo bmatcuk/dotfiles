@@ -105,9 +105,9 @@ export LESS="-FRXx2"
 # dircolors - brew install coreutils
 if [[ -r ~/.dir_colors ]]; then
   if command -v gdircolors >/dev/null; then
-    eval $(gdircolors ~/.dir_colors)
+    eval $(gdircolors -b ~/.dir_colors)
   elif command -v dircolors >/dev/null; then
-    eval $(dircolors ~/.dir_colors)
+    eval $(dircolors -b ~/.dir_colors)
   fi
 fi
 
