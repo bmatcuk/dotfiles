@@ -187,7 +187,11 @@ function _fzf_compgen_dir {
   (git ls-files -co --exclude-standard || fd -HL -td --exclude '.git') 2> /dev/null
 }
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [ -f ~/.fzf.bash ]; then
+  source ~/.fzf.bash
+elif command -v fzf >/dev/null; then
+  eval "$(fzf --bash)"
+fi
 _fzf_setup_completion path bat tig
 _fzf_setup_completion dir fd rg
 
