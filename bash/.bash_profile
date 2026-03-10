@@ -111,25 +111,38 @@ export HISTIGNORE="pwd:ls:ls -al:cd .."
 shopt -s histappend
 
 # lesspipe
-[ -x /usr/local/bin/lesspipe.sh ] && eval "$(/usr/local/bin/lesspipe.sh)"
+command -v lesspipe >/dev/null && eval "$(lesspipe)"
+command -v lesspipe.sh >/dev/null && eval "$(lesspipe.sh)"
 
 # Add homebrew to path
-export HOMEBREW_BAT=1
-export HOMEBREW_NO_GITHUB_API=1
-if [ -f /opt/homebrew/bin/brew ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [ -f /usr/local/bin/brew ]; then
-  eval "$(/usr/local/bin/brew shellenv)"
+if command -v brew >/dev/null; then
+  export HOMEBREW_BAT=1
+  export HOMEBREW_NO_GITHUB_API=1
+  eval "$(brew shellenv)"
+  HOMEBREW_PATHS=(
+    "$(brew --prefix grep)/libexec/gnubin"
+    "$(brew --prefix findutils)/libexec/gnubin"
+    "$(brew --prefix gnu-sed)/libexec/gnubin"
+    "$(brew --prefix gnu-tar)/libexec/gnubin"
+    "$(brew --prefix gnu-which)/libexec/gnubin"
+    "$PATH"
+  )
+  export PATH=$(IFS=":"; echo "${HOMEBREW_PATHS[*]}")
+
+  # brew install bash-completion@2
+  [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+
+  # https://stackoverflow.com/a/18839557/2836512
+  copy_function() {
+    test -n "$(declare -f "$1")" || return
+    eval "${_/$1/$2}"
+  }
+
+  # bash-completion@2 deprecated this function, but it is still used
+  if [[ "$(type -t _split_longopt)" != "function" ]]; then
+    copy_function _comp__split_longopt _split_longopt
+  fi
 fi
-HOMEBREW_PATHS=(
-  "$(brew --prefix grep)/libexec/gnubin"
-  "$(brew --prefix findutils)/libexec/gnubin"
-  "$(brew --prefix gnu-sed)/libexec/gnubin"
-  "$(brew --prefix gnu-tar)/libexec/gnubin"
-  "$(brew --prefix gnu-which)/libexec/gnubin"
-  "$PATH"
-)
-export PATH=$(IFS=":"; echo "${HOMEBREW_PATHS[*]}")
 
 # Add node bin to path
 export PATH=$PATH:./node_modules/.bin
@@ -149,20 +162,6 @@ export BAT_THEME="nord"
 
 # fuck (https://github.com/nvbn/thefuck)
 eval $(thefuck --alias)
-
-# brew install bash-completion@2
-[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-
-# https://stackoverflow.com/a/18839557/2836512
-copy_function() {
-  test -n "$(declare -f "$1")" || return
-  eval "${_/$1/$2}"
-}
-
-# bash-completion@2 deprecated this function, but it is still used
-if [[ "$(type -t _split_longopt)" != "function" ]]; then
-  copy_function _comp__split_longopt _split_longopt
-fi
 
 # brew install fzf (https://github.com/junegunn/fzf)
 # brew install fd (https://github.com/sharkdp/fd)
@@ -185,17 +184,14 @@ _fzf_setup_completion dir fd rg
 alias vi='nvim'
 alias vim='nvim'
 alias gr='cd $(git root)'
-alias qpreview='qlmanage -p &>/dev/null'
 alias preview="fzf --preview 'bat --color \"always\" {}' --preview-window :nohidden --height 100% --no-border"
 export EDITOR=nvim
 export VISUAL=nvim
 export GPG_TTY=$(tty)
 
-# Audio stops working on my Macbook Pro with Touchbar ALL THE DAMN TIME.
-function fixaudio {
-  sudo killall coreaudiod
-}
-export -f fixaudio
+if [ "$(uname -s)" = "Darwin" ]; then
+  alias qpreview='qlmanage -p &>/dev/null'
+fi
 
 [[ -r ~/.bash_profile.local ]] && eval "$(cat ~/.bash_profile.local)"
 
