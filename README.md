@@ -123,12 +123,14 @@ After running `stow tmux` and starting tmux, install plugins by typing
 `prefix + I` - that's the tmux prefix (typically Ctrl+B) followed by Shift+i.
 
 ### nvim
-After running `stow nvim`, you'll need to install python2, python3, and node
-(via asdf). Next, you'll need to run:
+My [neovim] config requires python2, python3, node, and rust, which can all be
+installed via asdf. You'll also need to install the following python and node
+packages. The first time you start neovim, it will automatically install all
+the plugins. You may get an error or two, but they should go away automatically
+as things are installed.
 ```bash
 pip3 install pynvim
 npm install -g neovim
-nvim +PlugInstall +UpdateRemotePlugins
 ```
 
 ### Fortune and Cowsay
