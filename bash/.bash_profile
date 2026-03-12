@@ -89,13 +89,6 @@ function prompt {
 PROMPT_COMMAND=prompt
 PS1="\$ "
 
-# aliases
-alias ls='ls -GFh'
-alias grep='grep --line-number --color=auto'
-alias cp='cp -v'
-alias mv='mv -v'
-alias rm='rm -v'
-
 # Colors
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
@@ -195,7 +188,11 @@ fi
 _fzf_setup_completion path bat tig
 _fzf_setup_completion dir fd rg
 
-# Misc
+# aliases and misc
+alias grep='grep --line-number --color=auto'
+alias cp='cp -v'
+alias mv='mv -v'
+alias rm='rm -v'
 alias vi='nvim'
 alias vim='nvim'
 alias gr='cd $(git root)'
@@ -206,6 +203,9 @@ export GPG_TTY=$(tty)
 
 if [ "$(uname -s)" = "Darwin" ]; then
   alias qpreview='qlmanage -p &>/dev/null'
+  alias ls='ls -GFh'
+else
+  alias ls='ls --color -Fh'
 fi
 
 [[ -r ~/.bash_profile.local ]] && eval "$(cat ~/.bash_profile.local)"
