@@ -124,7 +124,10 @@ After running `stow tmux` and starting tmux, install plugins by typing
 
 ### nvim
 My [neovim] config requires python2, python3, node, and rust, which can all be
-installed via asdf. You'll also need to install the following python and node
+installed via asdf. Mason is also configured to install gopls, which requires
+go. But, if you do not have go installed, you'll just get a warning.
+
+You'll also need to install the following python and node
 packages. The first time you start neovim, it will automatically install all
 the plugins. You may get an error or two, but they should go away automatically
 as things are installed.
