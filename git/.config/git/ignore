@@ -9,3 +9,5 @@
 .Spotlight-V100
 .Trash-*
 .Trashes
+
+**/.claude/settings.local.json

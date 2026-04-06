@@ -76,7 +76,7 @@ some other program tries to save something in those directories, they'll end up
 copied into this dotfiles repo because of the symlink. To avoid that, we'll
 create a few directories first:
 ```bash
-mkdir -p ~/.config/nvim
+mkdir -p ~/.config/nvim/lua/local
 
 mkdir -p ~/.local/share
 mkdir ~/.local/state
