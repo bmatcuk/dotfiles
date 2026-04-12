@@ -65,21 +65,29 @@ return {
             },
           },
         }
-      elseif adapter == "opencode" then
+      elseif adapter == "openrouter" then
         -- create ~/.config/nvim/lua/local/code-companion.lua:
         -- return {
-        --   adapter = "opencode",
+        --   adapter = "openrouter",
+        --   openrouter_token = "...",
         -- }
-        adapter = "opencode"
-        cli = {
-          agent = "opencode",
-          agents = {
-            opencode = {
-              cmd = "opencode",
-              args = {},
-              description = "OpenCode CLI",
-              provider = "terminal",
-            },
+        adapter = "openrouter"
+        adapters = {
+          http = {
+            openrouter = function()
+              return require("codecompanion.adapters").extend("openai_compatible", {
+                env = {
+                  url = "https://openrouter.ai/api",
+                  api_key = adapter_setup.openrouter_token,
+                  chat_url = "/v1/chat/completions",
+                },
+                schema = {
+                  model = {
+                    default = "minimax/minimax-m2.7",
+                  },
+                },
+              })
+            end,
           },
         }
       end
@@ -87,6 +95,11 @@ return {
       return {
         adapters = adapters,
         cli = cli,
+        extensions = {
+          mcphub = {
+            callback = "mcphub.extensions.codecompanion",
+          },
+        },
         interactions = {
           chat = {
             adapter = adapter,
@@ -99,6 +112,11 @@ return {
           },
           background = {
             adapter = adapter,
+          },
+        },
+        display = {
+          chat = {
+            show_settings = true,
           },
         },
         opts = {
