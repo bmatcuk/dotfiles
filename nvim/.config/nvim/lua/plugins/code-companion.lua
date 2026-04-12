@@ -110,6 +110,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "OXY2DEV/markview.nvim",
+      "ravitemer/mcphub.nvim",
     },
   },
 }
