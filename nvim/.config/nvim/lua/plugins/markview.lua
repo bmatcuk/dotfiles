@@ -3,7 +3,8 @@ return {
   lazy = false,
   opts = {
     preview = {
-      file_types = { "markdown", "quarto", "rmd", "typst", "asciidoc", "codecompanion" },
+      -- filetypes = { "markdown", "quarto", "rmd", "typst", "asciidoc", "codecompanion" },
+      filetypes = { "codecompanion" },
       icon_provider = "mini",
       --ignore_buftypes = {},
     },
