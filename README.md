@@ -1,12 +1,13 @@
 # My dotfiles
 These dotfiles are configured for OSX, but you may find that some of it applies
-to other *NIX systems. I'm using [alacritty] as my terminal, and the [nord]
+to other *NIX systems. I'm using [ghostty] as my terminal, and the [catppuccin]
 theme. The configuration relies on [Nerd Font] symbols; personally I'm using
-[Hack] (which is installed by the Brewfile), but any [Nerd Font] will work.
+[Monaspace] (which is installed by the Brewfile), but any [Nerd Font] will
+work.
 
 The Brewfile will install a suite of software I tend to install on all of my
 machines. For development, I use [asdf] to manage CLI tool versions, [neovim]
-as my editor, [bash] as my shell, and [tmux] to make my terminal more powerful;
+as my editor, [zsh] as my shell, and [tmux] to make my terminal more powerful;
 the latest version of these will be installed by the Brewfile, as well as a few
 other command line tools I find useful as a developer:
 * [bat] - like cat but better
@@ -24,7 +25,6 @@ all of my machines, such as:
 * [discord] - for keeping in touch with friends
 * [flux] - save your eyes from the blue light
 * [keybase] - encryption with friends
-* messenger - for keeping in touch with friends who refuse to change
 * [obsidian] - for note taking
 * [slack] - for work and play
 * [stay] - make windows stay put, even when switching monitors
@@ -38,7 +38,7 @@ Clone this repo to your home directory. The name you give the repo doesn't
 matter, but it'll make your life easier if it's in your home directory. For
 example, this will name the directory `~/.dotfiles`:
 ```bash
-git clone https://github.com/bmatcuk/dotfiles.git ~/.dotfiles
+git clone --recurse-submodules https://github.com/bmatcuk/dotfiles.git ~/.dotfiles
 ```
 
 Next, run the following in this directory to install all the software:
@@ -54,13 +54,6 @@ setup the software:
 Install the tmux-256color.terminfo:
 ```bash
 sudo tic -xe tmux-256color tmux-256color.terminfo
-```
-
-To use the version of [bash] installed by [homebrew] instead of OSX's default
-(outdated) version of bash, run:
-```bash
-echo "$(brew --prefix bash)/bin/bash" | sudo tee -a /etc/shells
-chsh -s "$(brew --prefix bash)/bin/bash"
 ```
 
 ## dotfiles
@@ -88,10 +81,10 @@ mkdir ~/.ssh
 ```
 
 dotfiles for each utility are in their own directory. For example, to install
-my bash dotfiles, you'd simply run the following while in this repo's
+my zsh dotfiles, you'd simply run the following while in this repo's
 directory:
 ```bash
-stow bash
+stow zsh
 ```
 
 Each dotfile can be installed individually by running [stow] on the appropriate
@@ -107,16 +100,6 @@ running `stow bat`:
 ```bash
 bat cache --build
 ```
-
-### bash and fzf
-After installing fzf and running `stow bash`, you need to install the fzf bash
-scripts:
-```bash
-$(brew --prefix fzf)/install --no-zsh --no-fish
-```
-
-Answer yes to auto-completion and key bindings, but answer no to updating the
-shell configuration file.
 
 ### tmux
 After running `stow tmux` and starting tmux, install plugins by typing
@@ -159,7 +142,7 @@ Sometimes you want to make changes to configs on a per-machine basis. For
 example, you might need some work-specific environment variables. Some configs
 have support for importing files for this purpose so you don't need to worry
 about accidentally committing these things to git:
-* `~/.bash_profile.local`
+* `~/.zshrc.local`
 * `~/.gitconfig.local`
 * `~/.ssh/config.local`
 * `~/.config/nvim/local.vim`
@@ -174,24 +157,23 @@ defaults write com.apple.dock size-immutable -bool yes
 killall Dock
 ```
 
-[Hack]: http://sourcefoundry.org/hack/
+[Monaspace]: https://monaspace.githubnext.com/
 [Nerd Font]: https://github.com/ryanoasis/nerd-fonts
-[alacritty]: https://github.com/jwilm/alacritty
 [alfred]: https://www.alfredapp.com/
 [asdf]: https://asdf-vm.com/#/
-[bash]: https://www.gnu.org/software/bash/
 [bat]: https://github.com/sharkdp/bat
+[catppuccin]: https://catppuccin.com/
 [cowsay-files]: https://github.com/paulkaefer/cowsay-files
 [cowsay]: https://github.com/tnalpgge/rank-amateur-cowsay
 [discord]: https://discord.com/
 [fd]: https://github.com/sharkdp/fd
 [flux]: https://justgetflux.com/
 [fzf]: https://github.com/junegunn/fzf
+[ghostty]: https://ghostty.org/
 [homebrew]: https://brew.sh/
 [jq]: https://stedolan.github.io/jq/
 [keybase]: https://keybase.io/
 [neovim]: https://neovim.io/
-[nord]: https://www.nordtheme.com/
 [obsidian]: https://obsidian.md/
 [ripgrep]: https://github.com/BurntSushi/ripgrep
 [slack]: https://slack.com/
@@ -202,3 +184,4 @@ killall Dock
 [tig]: https://jonas.github.io/tig/
 [tldr]: https://tldr.sh/
 [tmux]: https://tmux.github.io/
+[zsh]: https://www.zsh.org/

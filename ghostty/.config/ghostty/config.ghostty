@@ -1,0 +1,29 @@
+font-family = "Monaspace Argon NF"
+font-style = "Medium"
+font-style-bold = "Bold"
+font-style-italic = "Medium Italic"
+font-style-bold-italic = "Bold Italic"
+font-feature = "'calt', 'ss01', 'ss02', 'ss03', 'ss06', 'ss07', 'ss08', 'ss09', 'liga'"
+font-size = 10
+
+theme = "Catppuccin Mocha"
+
+confirm-close-surface = false
+quit-after-last-window-closed = true
+maximize = true
+
+keybind = clear
+keybind = super+shift+,=reload_config
+
+keybind = super+c=copy_to_clipboard:mixed
+keybind = copy=copy_to_clipboard:mixed
+
+keybind = super+shift+v=paste_from_selection
+keybind = super+v=paste_from_clipboard
+keybind = paste=paste_from_clipboard
+
+keybind = super++=increase_font_size:1
+keybind = super+-=decrease_font_size:1
+keybind = super+0=reset_font_size
+
+keybind = super+q=quit

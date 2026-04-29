@@ -46,7 +46,7 @@ return {
             return
           end
 
-          local installed = pcall(vim.treesitter.get_parser, bufnr, lang)
+          local installed = vim.treesitter.get_parser(bufnr, lang)
           if not installed then
             if not TS.install({ lang }) then
               return
