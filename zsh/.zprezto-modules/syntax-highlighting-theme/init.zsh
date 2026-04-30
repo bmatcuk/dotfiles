@@ -1,7 +1,8 @@
 #
-# Catppuccin Frappe theme for syntax-highlighting
+# Catppuccin Frappe theme for syntax-highlighting, using mocha base, overlays, and surfaces
 #
 # Authors:
+#   Bob Matcuk
 #   https://github.com/catppuccin/zsh-syntax-highlighting/blob/main/themes/catppuccin_frappe-zsh-syntax-highlighting.zsh
 #
 
@@ -18,7 +19,7 @@ typeset -gA ZSH_HIGHLIGHT_STYLES
 ### Markup
 ## Classes
 ## Comments
-ZSH_HIGHLIGHT_STYLES[comment]='fg=#626880'
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#585b70'
 ## Constants
 ## Entitites
 ## Functions/methods

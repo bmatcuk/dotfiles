@@ -21,13 +21,13 @@ fi
 # Variables
 #
 
-# Frappe theme with the mocha bg
+# Frappe theme with the mocha base, overlays, and surfaces
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#414559,bg:#1E1E2E,spinner:#F2D5CF,hl:#E78284 \
+--color=bg+:#313244,bg:#1E1E2E,spinner:#F2D5CF,hl:#E78284 \
 --color=fg:#C6D0F5,header:#E78284,info:#CA9EE6,pointer:#F2D5CF \
 --color=marker:#BABBF1,fg+:#C6D0F5,prompt:#CA9EE6,hl+:#E78284 \
---color=selected-bg:#51576D \
---color=border:#737994,label:#C6D0F5 \
+--color=selected-bg:#45475a \
+--color=border:#6c7086,label:#C6D0F5 \
 --style minimal \
 --height 20% \
 --no-mouse \
