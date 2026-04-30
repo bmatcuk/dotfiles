@@ -1,12 +1,12 @@
 font-family = "Monaspace Argon NF"
-font-style = "Medium"
+font-style = "Regular"
 font-style-bold = "Bold"
-font-style-italic = "Medium Italic"
+font-style-italic = "Italic"
 font-style-bold-italic = "Bold Italic"
 font-feature = "'calt', 'ss01', 'ss02', 'ss03', 'ss06', 'ss07', 'ss08', 'ss09', 'liga'"
 font-size = 10
 
-theme = "Catppuccin Mocha"
+theme = catppuccin-frappe.conf
 
 confirm-close-surface = false
 quit-after-last-window-closed = true
