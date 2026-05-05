@@ -8,7 +8,7 @@
   root = "!pwd"
 
 [core]
-  pager = diff-so-fancy | less --tabs=2 -FRX
+  pager = delta
 
 [diff-so-fancy]
   stripLeadingSymbols = false
@@ -24,8 +24,8 @@
   prune = true
 
 [merge]
-  tool = nvim
-  conflictstyle = diff3
+  tool = nvimdiff
+  conflictstyle = zdiff3
 
 [merge "npm-merge-driver"]
   name = automatically merge npm lockfiles
@@ -38,14 +38,11 @@
 [mergetool]
   keepBackup = false
 
-[mergetool "nvim"]
-  cmd = nvim -d \"$LOCAL\" \"$BASE\" \"$REMOTE\" \"$MERGED\" -c \"4wincmd w | wincmd J\"
-
-[diff]
-  tool = opendiff
+[mergetool "nvimdiff"]
+  layout = "LOCAL,BASE,REMOTE / MERGED"
 
 [interactive]
-  diffFilter = diff-so-fancy --patch
+  diffFilter = delta --color-only
 
 [submodule]
   recurse = true
@@ -111,3 +108,39 @@
 
 [init]
 	defaultBranch = main
+
+# Frappe with Mocha surfaces, overlays, and base
+[delta "catppuccin-frappe"]
+	blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a"
+	commit-decoration-style = "#6c7086" bold box ul
+	dark = true
+	file-decoration-style = "#6c7086"
+	file-style = "#c6d0f5"
+	hunk-header-decoration-style = "#6c7086" box ul
+	hunk-header-file-style = bold
+	hunk-header-line-number-style = bold "#a5adce"
+	hunk-header-style = file line-number syntax
+	line-numbers-left-style = "#6c7086"
+	line-numbers-minus-style = bold "#e78284"
+	line-numbers-plus-style = bold "#a6d189"
+	line-numbers-right-style = "#6c7086"
+	line-numbers-zero-style = "#6c7086"
+	# 35% red 65% base
+	minus-emph-style = bold syntax "#704f5c"
+	# 20% red 80% base
+	minus-style = syntax "#544452"
+	# 35% green 65% base
+	plus-emph-style = bold syntax "#596b5e"
+	# 20% green 80% base
+	plus-style = syntax "#475453"
+	map-styles = \
+		bold purple => syntax "#66597e", \
+		bold blue => syntax "#505d81", \
+		bold cyan => syntax "#546b7a", \
+		bold yellow => syntax "#6f6860"
+	# Should match the name of the bat theme
+	syntax-theme = Catppuccin Frappe
+
+[delta]
+  features = catppuccin-frappe
+  navigate = true
