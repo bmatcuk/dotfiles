@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=https://gh-dash.dev/schema.json
+defaults:
+  prApproveComment: ""
+
+pager:
+  diff: diffnav
+
+keybindings:
+  prs:
+    - key: T
+      name: action runs
+      command: >-
+        tmux display-popup -w 80% -h 80% -T Enhance -E 'gh enhance -R {{.RepoName}} {{.PrNumber}}' &
+
+theme:
+  colors:
+    text:
+      primary: "#c6d0f5"
+      secondary: "#8caaee"
+      inverted: "#11111b"
+      faint: "#b5bfe2"
+      warning: "#e5c890"
+      success: "#a6d189"
+      error: "#e78284"
+    background:
+      selected: "#313244"
+    border:
+      primary: "#8caaee"
+      secondary: "#45475a"
+      faint: "#313244"

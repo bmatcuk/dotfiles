@@ -20,3 +20,8 @@ alias vim='nvim'
 
 # line numbers
 alias grep="${aliases[grep]:-grep} --line-number"
+
+# glow
+if (( ${+GLAMOUR_STYLE} )) && (( ${+commands[glow]} )); then
+  alias glow="${aliases[glow]:-glow} -s $GLAMOUR_STYLE"
+fi

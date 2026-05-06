@@ -73,3 +73,17 @@ fi
 if [[ -z "$LESSOPEN" ]] && (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
+
+#
+# Other Environment Variables
+#
+
+# Glamour theme - glamour is used by glow and the github cli, among others
+if [[ -z "$GLAMOUR_STYLE" ]] && [ -f "$HOME/.config/glamour/catppuccin-frappe.json" ]; then
+  export GLAMOUR_STYLE="$HOME/.config/glamour/catppuccin-frappe.json"
+fi
+
+# theme for dlvhdr/gh-enhance
+if [[ -z "$ENHANCE_THEME" ]]; then
+  export ENHANCE_THEME=catppuccin_frappe
+fi

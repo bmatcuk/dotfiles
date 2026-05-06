@@ -119,7 +119,7 @@ pip3 install pynvim
 npm install -g neovim
 ```
 
-### Fortune and Cowsay
+### fortune and cowsay
 The files for fortune and [cowsay] must be linked to the respective `share`
 directories. If these were installed via [homebrew], the following will work:
 ```bash
@@ -137,6 +137,11 @@ The [cowsay] files come from Paul Kaefer's excellent [cowsay-files] repo. I
 have not included the true color cows, and I removed ghostbusters.cow and
 vader.cow because my install of cowsay already included them.
 
+### glamour
+[glamour] is a library for rendering markdown in a terminal. Several apps use
+it, including the github cli. If stowed, the zsh configs will automatically set
+the `GLAMOUR_STYLE` environment variable to the file's path.
+
 ## Local Modifications
 Sometimes you want to make changes to configs on a per-machine basis. For
 example, you might need some work-specific environment variables. Some configs
@@ -145,7 +150,6 @@ about accidentally committing these things to git:
 * `~/.zshrc.local`
 * `~/.gitconfig.local`
 * `~/.ssh/config.local`
-* `~/.config/nvim/local.vim`
 
 ## Some Manual Changes
 Here are a few manual changes I make when setting up a new system:
@@ -170,6 +174,7 @@ killall Dock
 [flux]: https://justgetflux.com/
 [fzf]: https://github.com/junegunn/fzf
 [ghostty]: https://ghostty.org/
+[glamour]: https://github.com/charmbracelet/glamour
 [homebrew]: https://brew.sh/
 [jq]: https://stedolan.github.io/jq/
 [keybase]: https://keybase.io/

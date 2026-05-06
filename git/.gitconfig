@@ -10,6 +10,9 @@
 [core]
   pager = delta
 
+[pager]
+	diff = diffnav
+
 [diff-so-fancy]
   stripLeadingSymbols = false
 
@@ -125,14 +128,14 @@
 	line-numbers-plus-style = bold "#a6d189"
 	line-numbers-right-style = "#6c7086"
 	line-numbers-zero-style = "#6c7086"
-	# 35% red 65% base
-	minus-emph-style = bold syntax "#704f5c"
 	# 20% red 80% base
-	minus-style = syntax "#544452"
-	# 35% green 65% base
-	plus-emph-style = bold syntax "#596b5e"
+	minus-emph-style = bold syntax "#46323f"
+	# 15% red 85% base
+	minus-style = syntax "#3c2d3b"
 	# 20% green 80% base
-	plus-style = syntax "#475453"
+	plus-emph-style = bold syntax "#394240"
+	# 15% green 85% base
+	plus-style = syntax "#32393c"
 	map-styles = \
 		bold purple => syntax "#66597e", \
 		bold blue => syntax "#505d81", \
@@ -144,3 +147,5 @@
 [delta]
   features = catppuccin-frappe
   navigate = true
+  tabs = 2
+  line-numbers = true

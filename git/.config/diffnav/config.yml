@@ -1,0 +1,5 @@
+ui:
+  hideHeader: true
+  hideFooter: false
+  icons: nerd-fonts-full
+  sideBySide: false
