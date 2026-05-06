@@ -38,7 +38,8 @@
           <!--<string>#51576d</string>-->
           <string>#45475a</string>
           <key>findHighlight</key>
-          <string>#506373</string>
+          <!--<string>#506373</string>-->
+          <string>#414356</string>
           <key>gutterForeground</key>
           <!--<string>#838ba7</string>-->
           <string>#7f849c</string>
