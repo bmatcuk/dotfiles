@@ -128,14 +128,14 @@
 	line-numbers-plus-style = bold "#a6d189"
 	line-numbers-right-style = "#6c7086"
 	line-numbers-zero-style = "#6c7086"
-	# 20% red 80% base
-	minus-emph-style = bold syntax "#46323f"
-	# 15% red 85% base
-	minus-style = syntax "#3c2d3b"
-	# 20% green 80% base
-	plus-emph-style = bold syntax "#394240"
-	# 15% green 85% base
-	plus-style = syntax "#32393c"
+	# 36% red 64% base
+	minus-emph-style = bold syntax "#66424d"
+	# 18% red 82% base
+	minus-style = syntax "#42303d"
+	# 36% green 64% base
+	plus-emph-style = bold syntax "#4f5e4f"
+	# 18% green 82% base
+	plus-style = syntax "#363e3e"
 	map-styles = \
 		bold purple => syntax "#66597e", \
 		bold blue => syntax "#505d81", \

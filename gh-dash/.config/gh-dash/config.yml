@@ -7,10 +7,16 @@ pager:
 
 keybindings:
   prs:
+    - key: O
+      name: code review
+      command: >-
+        tmux new-window -c "$(pwd)" -n 'pr {{.PrNumber}}' \
+        'nvim -c ":lua vim.schedule(function() vim.cmd([[Octo pr edit {{.PrNumber}}]]) end)"'
     - key: T
       name: action runs
       command: >-
-        tmux display-popup -w 80% -h 80% -T Enhance -E 'gh enhance -R {{.RepoName}} {{.PrNumber}}' &
+        tmux new-window -c "$(pwd)" -n 'actions {{.PrNumber}}' \
+        'gh enhance -R {{.RepoName}} {{.PrNumber}}'
 
 theme:
   colors:
