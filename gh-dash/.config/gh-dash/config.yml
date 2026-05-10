@@ -2,6 +2,16 @@
 defaults:
   prApproveComment: ""
 
+issuesSections:
+  - title: "My Issues"
+    filters: "is:open author:@me"
+  - title: "Assigned"
+    filters: "is:open assignee:@me"
+  - title: "Involved"
+    filters: "is:open involves:@me -author:@me"
+  - title: "Unassigned"
+    filters: "is:open no:assignee"
+
 pager:
   diff: diffnav
 
