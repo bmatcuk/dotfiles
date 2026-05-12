@@ -50,61 +50,94 @@
 [submodule]
   recurse = true
 
-[color]
-  ui = auto
+[color.advice]
+  # Color for advice/hint messages
+  hint = yellow
 
-[color "branch"]
-  current = "white blue bold"
-  local = "white bold"
-  plain = "white"
-  remote  = "blue bold"
+[color.branch]
+  # Colors for git branch output
+  current = green
+  local = normal
+  remote = red
+  upstream = blue
+  plain = normal
+  worktree = cyan
 
-[color "decorate"]
-  branch = "blue bold"
-  HEAD = "white bold ul"
-  remoteBranch = "blue"
-  stash = "yellow"
-  tag = "cyan bold"
+[color.decorate]
+  # Colors for ref decorations in git log
+  branch = bold green
+  remoteBranch = bold red
+  tag = bold yellow
+  stash = bold magenta
+  HEAD = bold cyan
+  grafted = bold blue
 
-[color "diff"]
-  commit = "blue bold"
-  frag = "blue bold"
-  func = "white"
-  meta = "cyan"
-  new = "green"
-  old = "red"
-  plain = "white"
-  whitespace = "white reverse"
+[color.diff]
+  # Colors for git diff output
+  context = normal
+  meta = bold
+  frag = cyan
+  func = normal
+  old = red
+  new = green
+  commit = yellow
+  whitespace = red reverse
 
-[color "diff-highlight"]
-  oldNormal = "red bold"
-  oldHighlight = "white red bold"
-  newNormal = "green bold"
-  newHighlight = "white green bold"
+  # Colors for moved line detection
+  oldMoved = bold magenta
+  oldMovedAlternative = bold blue
+  oldMovedDimmed = dim
+  oldMovedAlternativeDimmed = dim italic
+  newMoved = bold cyan
+  newMovedAlternative = bold yellow
+  newMovedDimmed = dim
+  newMovedAlternativeDimmed = dim italic
 
-[color "grep"]
-  context = "white"
-  filename = "white dim ul"
-  function = "white"
-  linenumber = "white dim bold"
-  match = "blue bold"
-  selected = "white"
-  separator = "white dim"
+  # Dimmed variants
+  contextDimmed = dim
+  oldDimmed = dim red
+  newDimmed = dim green
 
-[color "interactive"]
-  error = "red bold"
-  header = "blue bold"
-  help = "white dim"
-  prompt = "cyan"
+  # Bold variants
+  contextBold = bold
+  oldBold = bold red
+  newBold = bold green
 
-[color "status"]
-  added = "green bold"
-  changed = "yellow bold"
-  header = "white"
-  nobranch = "magenta bold ul"
-  unmerged = "blue ul"
-  untracked = "red bold"
-  updated = "cyan bold"
+[color.grep]
+  # Colors for git grep output
+  context = default
+  filename = magenta
+  function = default
+  lineNumber = green
+  match = bold red
+  matchContext = bold red
+  matchSelected = bold red
+  selected = default
+  separator = cyan
+
+[color.interactive]
+  # Colors for interactive commands (git add -i, git clean -i)
+  prompt = bold blue
+  header = bold
+  help = bold red
+  error = bold red
+
+[color.push]
+  # Colors for git push output
+  error = red
+
+[color.status]
+  # Colors for git status output
+  header = normal
+  added = green
+  updated = green
+  changed = red
+  untracked = red
+  noBranch = red
+  unmerged = red
+  localBranch = green
+  remoteBranch = red
+  branch = default
 
 [include]
   path = .gitconfig.local
