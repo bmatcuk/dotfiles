@@ -54,11 +54,14 @@
   # Color for advice/hint messages
   hint = yellow
 
+[color.blame]
+  highlightRecent = "blue,12 month ago,white,1 month ago,red"
+
 [color.branch]
   # Colors for git branch output
   current = green
   local = normal
-  remote = red
+  remote = white
   upstream = blue
   plain = normal
   worktree = cyan
@@ -66,7 +69,7 @@
 [color.decorate]
   # Colors for ref decorations in git log
   branch = bold green
-  remoteBranch = bold red
+  remoteBranch = bold white
   tag = bold yellow
   stash = bold magenta
   HEAD = bold cyan
@@ -109,6 +112,7 @@
   filename = magenta
   function = default
   lineNumber = green
+  column = default
   match = bold red
   matchContext = bold red
   matchSelected = bold red
@@ -126,6 +130,12 @@
   # Colors for git push output
   error = red
 
+[color.remote]
+  hint = white
+  warning = yellow
+  success = green
+  error = red
+
 [color.status]
   # Colors for git status output
   header = normal
@@ -138,6 +148,9 @@
   localBranch = green
   remoteBranch = red
   branch = default
+
+[color.transport]
+  rejected = red
 
 [include]
   path = .gitconfig.local
