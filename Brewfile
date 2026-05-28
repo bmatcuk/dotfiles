@@ -45,6 +45,7 @@ cask "font-monaspace-nf"
 cask "ghostty"
 cask "keybase"
 cask "obsidian"
+cask "rectangle"
 cask "stay"
 
 mas "Clocker", id: 1056643111
