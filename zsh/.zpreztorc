@@ -274,3 +274,6 @@ zstyle ':prezto:module:tmux:alias' skip 'yes'
 # before deleting or overwriting files. Set to 'no' to disable this safer
 # behavior.
 # zstyle ':prezto:module:utility' safe-ops 'yes'
+
+# Disable grep colors 'cause we'll set that up elsewhere
+zstyle ':prezto:module:utility:grep' color 'no'

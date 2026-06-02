@@ -87,3 +87,7 @@ fi
 if [[ -z "$ENHANCE_THEME" ]]; then
   export ENHANCE_THEME=catppuccin_frappe
 fi
+
+if [[ -z "$GREP_COLORS" ]]; then
+  export GREP_COLORS="cx=38;2;127;132;156:mt=01;34;48;2;53;55;72:ms=01;34;48;2;53;55;72:mc=01;34;48;2;53;55;72:fn=34:ln=01;30:bn=01;30:se=30"
+fi

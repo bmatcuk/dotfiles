@@ -19,7 +19,7 @@ alias vi='nvim'
 alias vim='nvim'
 
 # line numbers
-alias grep="${aliases[grep]:-grep} --line-number"
+alias grep="${aliases[grep]:-grep} --line-number --color=auto"
 
 # glow
 if (( ${+GLAMOUR_STYLE} )) && (( ${+commands[glow]} )); then
