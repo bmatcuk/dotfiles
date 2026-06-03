@@ -44,6 +44,7 @@ git clone --recurse-submodules https://github.com/bmatcuk/dotfiles.git ~/.dotfil
 Next, run the following in this directory to install all the software:
 ```bash
 cd ~/.dotfiles
+brew trust --formula cjbassi/gotop/gotop dlvhdr/formulae/diffnav
 brew bundle
 ```
 
