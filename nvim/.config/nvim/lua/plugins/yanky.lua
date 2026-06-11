@@ -1,9 +1,8 @@
 return {
   {
     "gbprod/yanky.nvim",
-    lazy = false,
     dependencies = {
-      "nvim-telescope/telescope.nvim",
+      "folke/snacks.nvim",
     },
     opts = {
       system_clipboard = {
@@ -13,13 +12,11 @@ return {
         timer = 250,
       },
     },
-    config = function(_, opts)
-      require("yanky").setup(opts)
-      require("telescope").load_extension "yank_history"
-      vim.keymap.set("n", "<leader>p", "<CMD>Telescope yank_history<CR>", {
+    keys = {
+      { "<leader>p", function() Snacks.picker.yanky() end,
         desc = "Open yank history.",
         silent = true,
-      })
-    end,
+      },
+    },
   },
 }

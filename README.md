@@ -48,15 +48,6 @@ brew trust --formula cjbassi/gotop/gotop dlvhdr/formulae/diffnav
 brew bundle
 ```
 
-## Setup
-After all of the software is installed, you'll need to run a few commands to
-setup the software:
-
-Install the tmux-256color.terminfo:
-```bash
-sudo tic -xe tmux-256color tmux-256color.terminfo
-```
-
 ## dotfiles
 Now that everything is setup, you can use [stow] to create symbolic links to
 the dotfiles. These instructions assume that you've cloned this repo to your
@@ -70,6 +61,8 @@ some other program tries to save something in those directories, they'll end up
 copied into this dotfiles repo because of the symlink. To avoid that, we'll
 create a few directories first:
 ```bash
+mkdir -p ~/Library/Application\ Support/lazygit/
+
 mkdir -p ~/.config/nvim/lua/local
 
 mkdir -p ~/.local/share
@@ -90,10 +83,6 @@ stow zsh
 
 Each dotfile can be installed individually by running [stow] on the appropriate
 directories.
-
-In addition to configuration for various command line tools, I also have some
-configuration for a few linting tools. These are located in directories named
-after the programming language, such as javascript or css.
 
 ### bat
 If you decide to use the bat dotfiles, you'll need to run the following after

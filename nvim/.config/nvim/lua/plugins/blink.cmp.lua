@@ -4,6 +4,11 @@ return {
     build = "cargo build --release",
     branch = "v1",
     opts = {
+      completion = {
+        ghost_text = {
+          enabled = false,
+        },
+      },
       keymap = {
         preset = "enter",
 

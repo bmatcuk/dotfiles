@@ -48,7 +48,7 @@ return {
 
           local installed = vim.treesitter.get_parser(bufnr, lang)
           if not installed then
-            if not TS.install({ lang }) then
+            if not TS.install({ lang }):wait() then
               return
             end
           end
@@ -75,29 +75,81 @@ return {
               vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.treesitter.foldexpr()", { scope = "local" })
             end
           end
+
+          vim.api.nvim_exec_autocmds("User", {
+            pattern = "MyTreesitterReady",
+            data = vim.tbl_extend("keep", {}, ev, { lang = lang }),
+          })
         end,
       })
     end,
   },
 
-  -- {
-  --   "nvim-treesitter/nvim-treesitter-textobjects",
-  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
-  --   branch = "main",
-  --   version = false,
-  --   event = "VeryLazy",
-  --   opts = {
-  --     move = {
-  --       enable = true,
-  --       set_jumps = true, -- whether to set jumps in the jumplist
-  --       -- LazyVim extention to create buffer-local keymaps
-  --       keys = {
-  --         goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-  --         goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-  --         goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-  --         goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
-  --       },
-  --     },
-  --   },
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    branch = "main",
+    lazy = false,
+    opts = {
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        -- extention to create buffer-local keymaps
+        keys = {
+          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
+        },
+      },
+    },
+    init = function()
+      -- Disable entire built-in ftplugin mappings to avoid conflicts.
+      -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin
+      vim.g.no_plugin_maps = true
+    end,
+    config = function(_, opts)
+      local TSTO = require("nvim-treesitter-textobjects")
+      TSTO.setup(opts)
+
+      if not vim.tbl_get(opts, "move", "enable") then
+        return
+      end
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MyTreesitterReady",
+        group = vim.api.nvim_create_augroup("mytextobjectsgroup", { clear = true }),
+        callback = function(ev)
+          if not vim.treesitter.query.get(ev.data.lang, "textobjects") then
+            return
+          end
+
+          local moves = vim.tbl_get(opts, "move", "keys") or {}
+          for method, keymaps in pairs(moves) do
+            for key, query in pairs(keymaps) do
+              local queries = type(query) == "table" and query or { query }
+              local parts = {}
+              for _, q in ipairs(queries) do
+                local part = q:gsub("@", ""):gsub("%..*", "")
+                part = part:sub(1, 1):upper() .. part:sub(2)
+                table.insert(parts, part)
+              end
+              local desc = table.concat(parts, " or ")
+              desc = (key:sub(1, 1) == "[" and "Prev " or "Next ") .. desc
+              desc = desc .. (key:sub(2, 2) == key:sub(2, 2):upper() and " End" or " Start")
+              if not (vim.wo.diff and key:find("[cC]")) then
+                vim.keymap.set({ "n", "x", "o" }, key, function()
+                  require("nvim-treesitter-textobjects.move")[method](query, "textobjects")
+                end, {
+                  buffer = bufnr,
+                  desc = desc,
+                  silent = true,
+                })
+              end
+            end
+          end
+        end,
+      })
+    end,
+  },
 }

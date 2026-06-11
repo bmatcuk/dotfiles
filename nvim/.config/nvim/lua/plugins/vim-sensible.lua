@@ -29,6 +29,29 @@ return {
       vim.o.completeopt = "menu,menuone,noselect"
       vim.o.background = "dark"
       vim.o.foldlevelstart = 99
+
+      local augroup = vim.api.nvim_create_augroup("yankhighlight", { clear = true })
+      if vim.fn.has("nvim-0.13") == 1 then
+        vim.api.nvim_create_autocmd("TextYankPost", {
+          group = augroup,
+          callback = function()
+            vim.hl.hl_op { higroup = "Search", timeout = 250 }
+          end,
+        })
+        vim.api.nvim_create_autocmd("TextPutPost", {
+          group = augroup,
+          callback = function()
+            vim.hl.hl_op { higroup = "Search", timeout = 250 }
+          end,
+        })
+      else
+        vim.api.nvim_create_autocmd("TextYankPost", {
+          group = augroup,
+          callback = function()
+            vim.highlight.on_yank { higroup = "Search", timeout = 250 }
+          end,
+        })
+      end
     end,
   },
 }

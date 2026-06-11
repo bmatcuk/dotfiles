@@ -45,8 +45,9 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = augroup,
         callback = function(args)
+          local bufnr = args.buf
           local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-          if client:supports_method('textDocument/documentHighlight') then
+          if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               callback = vim.lsp.buf.document_highlight,
               buffer = args.buf,
@@ -56,6 +57,17 @@ return {
               callback = vim.lsp.buf.clear_references,
               buffer = args.buf,
               group = augroup,
+            })
+          end
+          if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, bufnr) then
+            vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
+            vim.keymap.set('i', '<C-F>', vim.lsp.inline_completion.get, {
+              desc = "LSP: accept inline completion",
+              buffer = bufnr,
+            })
+            vim.keymap.set('i', '<C-G>', vim.lsp.inline_completion.select, {
+              desc = "LSP: switch inline completion",
+              buffer = bufnr,
             })
           end
         end,

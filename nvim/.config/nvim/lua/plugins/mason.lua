@@ -16,6 +16,7 @@ return {
     opts = {
       ensure_installed = {
         "cssls", -- "css-lsp",
+        "copilot", -- github copilot
         "eslint", --"eslint-lsp",
         "gopls",
         "html", -- "html-lsp",

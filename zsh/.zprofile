@@ -23,9 +23,7 @@ fi
 if [[ -z "$VISUAL" ]]; then
   export VISUAL='nvim'
 fi
-if [[ -z "$PAGER" ]]; then
-  export PAGER='less'
-fi
+export PAGER='bat'
 
 #
 # Language
@@ -81,11 +79,6 @@ fi
 # Glamour theme - glamour is used by glow and the github cli, among others
 if [[ -z "$GLAMOUR_STYLE" ]] && [ -f "$HOME/.config/glamour/catppuccin-frappe.json" ]; then
   export GLAMOUR_STYLE="$HOME/.config/glamour/catppuccin-frappe.json"
-fi
-
-# theme for dlvhdr/gh-enhance
-if [[ -z "$ENHANCE_THEME" ]]; then
-  export ENHANCE_THEME=catppuccin_frappe
 fi
 
 if [[ -z "$GREP_COLORS" ]]; then
