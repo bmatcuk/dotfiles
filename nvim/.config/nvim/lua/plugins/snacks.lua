@@ -23,7 +23,7 @@ return {
                 end
               end,
             },
-            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+            { icon = " ", key = "i", desc = "New File", action = ":ene | startinsert" },
             { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
             { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
             { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
@@ -132,6 +132,12 @@ return {
         function()
           -- Some ideas stolen from:
           -- https://github.com/folke/snacks.nvim/discussions/1306#discussioncomment-16142359
+          local cwd = vim.api.nvim_buf_get_name(0)
+          if cwd == "" then
+            cwd = vim.fn.getcwd()
+          else
+            cwd = vim.fs.dirname(cwd)
+          end
           Snacks.explorer.open({
             layout = { preset = "default", preview = true },
             tree = false,
@@ -140,6 +146,7 @@ return {
             icons = {
               tree = { last = "", middle = "", vertical = "" },
             },
+            cwd = cwd,
             on_show = function(picker)
               picker.cwd_jumplist = {}
             end,

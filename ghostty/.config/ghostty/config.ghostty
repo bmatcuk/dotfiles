@@ -27,3 +27,6 @@ keybind = super+-=decrease_font_size:1
 keybind = super+0=reset_font_size
 
 keybind = super+q=quit
+
+macos-option-as-alt = left
+bell-features = no-system,no-audio,no-attention,no-title,no-border
