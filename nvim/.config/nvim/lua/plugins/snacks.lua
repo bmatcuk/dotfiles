@@ -122,6 +122,11 @@ return {
         },
       },
       scratch = { enabled = true },
+      statuscolumn = {
+        left = { "git", "fold" },
+        right = { "mark", "sign" },
+        folds = { open = true },
+      },
     },
     keys = {
       -- gh
@@ -243,8 +248,6 @@ return {
       { "gr", function() Snacks.picker.lsp_references() end, desc = "Goto reference or show options." },
       { "grr", function() Snacks.picker.lsp_references() end, desc = "Goto reference or show options." },
       { "gt", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto type definition or show options." },
-      { "gs", function() Snacks.picker.lsp_symbols() end, desc = "Symbols in the current document." },
-      { "gO", function() Snacks.picker.lsp_symbols() end, desc = "Symbols in the current document." },
       { "\\", function() Snacks.picker.grep() end, desc = "Grep." },
       { "<leader>\\", function() Snacks.picker.grep_word() end, desc = "Grep word under cursor." },
       { "<space>u", function() Snacks.picker.undo() end, desc = "Open undo history." },
