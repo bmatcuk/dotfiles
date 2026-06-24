@@ -84,6 +84,7 @@ return {
       },
       explorer = { enabled = true },
       gh = { enabled = true },
+      gitbrowse = { what = "permalink" },
       indent = {
         indent = {
           only_scope = true,
@@ -121,7 +122,6 @@ return {
           },
         },
       },
-      scratch = { enabled = true },
       statuscolumn = {
         left = { "git", "fold" },
         right = { "mark", "sign" },
@@ -132,6 +132,8 @@ return {
       -- gh
       { "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
       { "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
+      -- gitbrowse
+      { "<leader>gO", function() Snacks.gitbrowse.open() end, desc = "Open GitHub page for current file." },
       -- explorer
       { "<leader>e",
         function()
@@ -251,9 +253,6 @@ return {
       { "\\", function() Snacks.picker.grep() end, desc = "Grep." },
       { "<leader>\\", function() Snacks.picker.grep_word() end, desc = "Grep word under cursor." },
       { "<space>u", function() Snacks.picker.undo() end, desc = "Open undo history." },
-      -- scratch
-      { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-      { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
     },
   },
 }
