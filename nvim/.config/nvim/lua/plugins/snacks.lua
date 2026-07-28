@@ -94,6 +94,16 @@ return {
       },
       picker = {
         sources = {
+          buffers = {
+            win = {
+              input = {
+                keys = {
+                  ["<c-x>"] = { "bufdelete", mode = { "n", "i" } },
+                  ["x"] = { "bufdelete", mode = { "n" } },
+                },
+              },
+            },
+          },
           explorer = {
             win = {
               list = {
@@ -129,6 +139,8 @@ return {
       },
     },
     keys = {
+      -- bufdelete
+      { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete buffer." },
       -- gh
       { "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (open)" },
       { "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (open)" },
